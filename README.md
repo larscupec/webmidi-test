@@ -1,4 +1,4 @@
-### Ableton Online (working title)
+# Ableton Online (working title)
 
 ## Chapter
 
