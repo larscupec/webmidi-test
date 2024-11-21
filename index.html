@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Midi Test</title>
+  <base href=".">
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" href="styles/channel-rack.css">
+  <link rel="stylesheet" href="styles/arrangement.css">
+  <link rel="stylesheet" href="styles/keyboard.css">
+  <script src="https://cdn.jsdelivr.net/npm/webmidi@latest/dist/iife/webmidi.iife.js"></script>
+  <script src="http://unpkg.com/tone"></script>
+  <script src="scripts/script.js" type="module"></script>
+</head>
+
+<body>
+  <header>
+    <section id="song-info">
+      <h1 id="splash">Hello Firefox!</h1>
+      <button type="button" id="activate-sound">Sound ❌</button>
+      <input type="number" name="bpm" id="bpm-select" value="120" oninput="setBPM()">
+      <label for="bpm">BPM</label>
+    </section>
+
+    <section id="playback">
+      <p id="play-btn" onclick="playPauseSong()">▶</p>
+      <p id="stop-btn" onclick="stopSong()">⏹</p>
+      <p id="record-btn" onclick="toggleRecording()">⏺</p>
+    </section>
+
+    <section id="settings">
+      <button type="button" onclick="toggleMetronome()">Met</button>
+      <button type="button" onclick="toggleKeyboardVisibility()">K</button>
+      <div>
+        <label for="input-select">Input:</label>
+        <select name="input-select" id="input-select"></select>
+      </div>
+    </section>
+  </header>
+
+  <main>
+    <section id="channel-rack">
+      <div id="channel-rack-header">
+        <p id="song-time">00:00:00</p>
+      </div>
+    </section>
+
+    <section id="arrangement">
+      <div id="timeline"></div>
+      <div id="playhead"></div>
+    </section>
+  </main>
+
+  <footer id="footer">
+    <section id="keyboard"></section>
+  </footer>
+</body>
+
+</html>

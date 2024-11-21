@@ -1,0 +1,64 @@
+#channel-rack {
+  flex: 1;
+  margin-right: 5px;
+  display: grid;
+  grid-template-rows: auto repeat(8, 1fr);
+}
+
+#channel-rack-header {
+  height: 20px;
+  text-align: right;
+}
+
+.channel {
+  border-bottom: 1px solid rgb(171, 171, 171);
+  background-color: rgb(190, 190, 190);
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.channel p {
+  font-size: large;
+}
+
+.channel:nth-child(2) {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.channel:last-child {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.channel-info {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+
+.channel-info button {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  background-color: rgb(233, 233, 237);
+  border: 1px solid rgb(143, 143, 157);
+  text-align: center;
+}
+
+.voice-select {
+  min-width: 120px;
+  text-align: center;
+}
+
+.mute-solo-btn {
+  display: flex;
+  flex-direction: row;
+}
+
+.channel-fader {
+  min-width: 100px;
+}

@@ -1,0 +1,28 @@
+.whitenote {
+  height: 100%;
+  width: 30px;
+  float: left;
+  position: relative;
+  background: rgb(236, 236, 236);
+  overflow: visible;
+  border-right: 1px solid black;
+  display: flex;
+  justify-content: center;
+}
+
+.whitenote:first-child {
+  border-left: 1px solid black;
+}
+
+.whitenote p {
+  align-self: flex-end;
+}
+
+.blacknote {
+  position: absolute;
+  height: 65%;
+  width: 55%;
+  left: 68%;
+  z-index: 1;
+  background: rgb(75, 75, 75);
+}

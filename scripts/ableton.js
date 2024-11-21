@@ -1,0 +1,41 @@
+import { TimeSignature } from "./ableton/time-signature.js";
+import { ChannelRack } from "./ableton/channel-rack.js";
+import { Player } from "./ableton/player.js";
+import { Channel } from "./ableton/channel.js";
+import { Timing } from "./ableton/timing.js";
+import * as Voices from "./voices.js";
+
+Timing.setBPM(document.getElementById("bpm-select").value);
+Timing.setBarCount(4);
+Timing.setTimeSignature(new TimeSignature(4, 4));
+
+export const channelRack = new ChannelRack();
+
+export const player = new Player(channelRack);
+
+const channel1 = new Channel("Track 1", Voices.roland808.clone());
+const channel2 = new Channel("Track 2", Voices.squarePluck.clone());
+const channel3 = new Channel("Track 3", Voices.piano.clone());
+const channel4 = new Channel("Track 4", Voices.squarePluck.clone());
+
+channelRack.add(channel1);
+channelRack.add(channel2);
+channelRack.add(channel3);
+channelRack.add(channel4);
+
+export const voices = [Voices.roland808, Voices.squarePluck, Voices.piano];
+
+export const notePitchClassValues = new Map();
+
+notePitchClassValues.set("C", 1);
+notePitchClassValues.set("C#", 2);
+notePitchClassValues.set("D", 3);
+notePitchClassValues.set("D#", 4);
+notePitchClassValues.set("E", 5);
+notePitchClassValues.set("F", 6);
+notePitchClassValues.set("F#", 7);
+notePitchClassValues.set("G", 8);
+notePitchClassValues.set("G#", 9);
+notePitchClassValues.set("A", 10);
+notePitchClassValues.set("A#", 11);
+notePitchClassValues.set("B", 12);

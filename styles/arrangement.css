@@ -1,0 +1,99 @@
+#arrangement {
+  flex: 3;
+  margin-left: 5px;
+  background-color: rgb(190, 190, 190);
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto repeat(8, 1fr);
+  border-radius: 5px;
+}
+
+#timeline {
+  grid-column: 1 / span 2;
+  height: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-bottom: 2px solid gray;
+}
+
+#playhead {
+  width: 1px;
+  height: 100%;
+  background-color: black;
+  grid-column: 1;
+  grid-row: 2 / span 8;
+  position: relative;
+  z-index: 3;
+  visibility: hidden;
+}
+
+.track {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr) auto;
+  border-bottom: 1px solid rgb(144, 144, 144);
+  grid-column: 1;
+}
+
+.bar {
+  width: 100%;
+  height: 100%;
+  border-right: 1px solid rgb(144, 144, 144);
+  display: grid;
+  grid-row: 1;
+}
+
+.bar:nth-child(even) {
+  background-color: rgb(200, 200, 200);
+}
+
+.bar:last-child {
+  border: 0;
+}
+
+.beat {
+  border-right: 1px solid rgb(179, 179, 179);
+}
+
+.beat:last-child {
+  border: 0;
+}
+
+.pattern {
+  z-index: 1;
+  position: relative;
+  grid-column: 1 / span 4;
+  grid-row: 1;
+  display: grid;
+}
+
+.pattern button {
+  z-index: 2;
+  justify-self: right;
+  width: 16px;
+  height: 16px;
+  font-size: x-small;
+  text-align: center;
+  grid-row: 1;
+  grid-column: 1;
+  margin-top: 2px;
+  margin-right: 2px;
+  background-color: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.pattern button:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.pattern button:active {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+.pattern canvas {
+  grid-row: 1;
+  grid-column: 1;
+  position: absolute;
+}
