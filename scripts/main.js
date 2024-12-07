@@ -1,4 +1,5 @@
-import { MIDIDevice, VirtualKeyboard } from "./ableton/midi-device.js";
+import { MIDIDevice } from "./ableton/midi-device.js";
+import { VirtualKeyboard } from "./ableton/virtual-keyboard.js";
 import * as Ableton from "./ableton.js";
 import { Timing } from "./ableton/timing.js";
 import { NoteHistory } from "./ableton/note-history.js";
@@ -37,13 +38,20 @@ window.onload = () => {
   drawArrangement();
   drawKeyboard();
 
-  document.getElementById("activate-sound").addEventListener("click", async () => {
-    await Tone.start();
-    document.getElementById("activate-sound").innerText = "Sound ✔";
+  document.getElementById("activate-sound").addEventListener("click", (event) => {
+    Ableton.audioContext.resume().then(() => {
+      event.target.innerText = "Sound ✔";
+    });
   });
 
   if (navigator.userAgent.includes("Chrome")) {
     document.getElementById("splash").innerText = "Hello Chrome!";
+  }
+
+  if (Ableton.player.getIsMetronomeOn()) {
+    document.getElementById("metronome-btn").style.textDecoration = "none";
+  } else {
+    document.getElementById("metronome-btn").style.textDecoration = "line-through";
   }
 
   document.addEventListener("keydown", (event) => playKeyPressed(event));
@@ -164,8 +172,16 @@ function onEnabled() {
   selectInputDevice(inputDevices[0].getName());
 
   inputSelect.addEventListener("change", (event) => changeInputDevice(event));
-  document.addEventListener("keydown", (event) => virtualKeyboard.keyDown(event.key));
-  document.addEventListener("keyup", (event) => virtualKeyboard.keyUp(event.key));
+  document.addEventListener("keydown", (event) => {
+    if (!event.repeat) {
+      virtualKeyboard.keyDown(event.key);
+    }
+  });
+  document.addEventListener("keyup", (event) => {
+    if (!event.repeat) {
+      virtualKeyboard.keyUp(event.key);
+    }
+  });
 }
 
 // Drawing functions
@@ -230,10 +246,10 @@ function drawChannelRack() {
     volumeFader.type = "range";
     volumeFader.id = `channel-${i}-volume`;
     volumeFader.className = "channel-fader";
-    volumeFader.min = -12;
-    volumeFader.max = 3;
-    volumeFader.value = 0;
-    volumeFader.step = 0.25;
+    volumeFader.min = 0;
+    volumeFader.max = 127;
+    volumeFader.value = 100;
+    volumeFader.step = 1;
 
     channelInfo.appendChild(volumeFader);
 
@@ -507,13 +523,21 @@ function toggleKeyboardVisibility() {
 
   if (isKeyboardVisible) {
     document.getElementById("footer").style.display = "flex";
+    document.getElementById("keyboard-btn").style.textDecoration = "none";
   } else {
     document.getElementById("footer").style.display = "none";
+    document.getElementById("keyboard-btn").style.textDecoration = "line-through";
   }
 }
 
 function toggleMetronome() {
   Ableton.player.setIsMetronomeOn(!Ableton.player.getIsMetronomeOn());
+
+  if (Ableton.player.getIsMetronomeOn()) {
+    document.getElementById("metronome-btn").style.textDecoration = "none";
+  } else {
+    document.getElementById("metronome-btn").style.textDecoration = "line-through";
+  }
 }
 
 function setBPM() {
@@ -546,9 +570,6 @@ function keyDown(pitch, event = null) {
 
   let currentChannel = Ableton.channelRack.getCurrentChannel();
 
-  // To avoid the Tone.js timing error, use the original voice instance
-  // to play sounds from the user and use clones to play notes from
-  // patterns.
   let currentChannelVoice = Ableton.voices.find(
     (voice) => voice.getName() === currentChannel.getVoice().getName()
   );
@@ -559,26 +580,32 @@ function keyDown(pitch, event = null) {
   }
 }
 
-function keyUp(note, event = null) {
-  let pianoKey = document.getElementById(note);
+function keyUp(pitch, event = null) {
+  let pianoKey = document.getElementById(pitch);
 
   if (pianoKey) {
-    pianoKey.style.background = note.includes("#") ? "rgb(75, 75, 75)" : "rgb(236, 236, 236)";
+    pianoKey.style.background = pitch.includes("#") ? "rgb(75, 75, 75)" : "rgb(236, 236, 236)";
   }
 
   event?.stopPropagation();
 
   let currentChannel = Ableton.channelRack.getCurrentChannel();
+
+  let currentChannelVoice = Ableton.voices.find(
+    (voice) => voice.getName() === currentChannel.getVoice().getName()
+  );
+  currentChannelVoice.stopNote(pitch);
+
   let pattern = currentChannel.getPattern();
   let player = Ableton.player;
 
   if (player.getIsRecording() && currentChannel.getIsArmedForRecording()) {
-    let noteOctave = note.replace(/[^0-9]/g, "");
+    let noteOctave = pitch.replace(/[^0-9]/g, "");
     
     if (noteOctave >= pattern.getLowestOctave() && noteOctave <= pattern.getHighestOctave()) {
-      currentChannel.recordNoteEnd(note, Ableton.player.getCurrentSongTimeMs(), drawNote);
+      currentChannel.recordNoteEnd(pitch, Ableton.player.getCurrentSongTimeMs(), drawNote);
     } else {
-      currentChannel.recordNoteEnd(note, Ableton.player.getCurrentSongTimeMs(), null);
+      currentChannel.recordNoteEnd(pitch, Ableton.player.getCurrentSongTimeMs(), null);
       redrawPattern(Ableton.channelRack.getChannelIndex(currentChannel));
     }
   }
@@ -587,7 +614,7 @@ function keyUp(note, event = null) {
 // Key press callbacks
 
 function undoKeyPressed(event) {
-  if (event.key === "z" && event.ctrlKey) {
+  if (event.key === "z" && event.ctrlKey && !event.repeat) {
     let lastPlayedNote = NoteHistory.undo();
 
     if (!lastPlayedNote) return;
@@ -601,7 +628,7 @@ function undoKeyPressed(event) {
 }
 
 function redoKeyPressed(event) {
-  if (event.key === "y" && event.ctrlKey) {
+  if (event.key === "y" && event.ctrlKey && !event.repeat) {
     let lastDeletedNote = NoteHistory.redo();
 
     if (!lastDeletedNote) return;
@@ -615,7 +642,7 @@ function redoKeyPressed(event) {
 }
 
 function playKeyPressed(event) {
-  if (event.key === " ") {
+  if (event.key === " " && !event.repeat) {
     if (Ableton.player.getIsSongPlaying() || Ableton.player.getCurrentSongTimeMs() != 0) {
       window.stopSong();
     } else {
@@ -625,13 +652,15 @@ function playKeyPressed(event) {
 }
 
 function pauseKeyPressed(event) {
-  if (event.key === "Pause") {
+  if (event.repeat) return;
+
+  if (event.key === "Pause" && !event.repeat) {
     window.playPauseSong();
   }
 }
 
 function recordKeyPressed(event) {
-  if (event.key === "R") {
+  if (event.key === "R" && !event.repeat) {
     window.toggleRecording();
   }
 }

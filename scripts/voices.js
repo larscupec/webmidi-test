@@ -1,7 +1,9 @@
-import { SquarePluck } from "./voices/square-pluck.js"
-import { Piano } from "./voices/piano.js"
-import { RolandTR808 } from "./voices/roland-tr-808.js"
+import { AcousticPiano } from "./voices/acoustic-piano.js"
+import { TR808 } from "./voices/tr808.js";
+import { AcousticBass } from "./voices/acoustic-bass.js";
 
-export const squarePluck = new SquarePluck();
-export const piano = new Piano();
-export const roland808 = new RolandTR808();
+export const audioContext = new AudioContext();
+
+export const acousticPiano = new AcousticPiano(audioContext);
+export const tr808 = new TR808(audioContext);
+export const acousticBass = new AcousticBass(audioContext);

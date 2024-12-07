@@ -13,17 +13,19 @@ export const channelRack = new ChannelRack();
 
 export const player = new Player(channelRack);
 
-const channel1 = new Channel("Track 1", Voices.roland808.clone());
-const channel2 = new Channel("Track 2", Voices.squarePluck.clone());
-const channel3 = new Channel("Track 3", Voices.piano.clone());
-const channel4 = new Channel("Track 4", Voices.squarePluck.clone());
+export const audioContext = Voices.audioContext;
+
+export const voices = [Voices.acousticPiano, Voices.tr808, Voices.acousticBass];
+
+const channel1 = new Channel("Track 1", Voices.tr808.clone());
+const channel2 = new Channel("Track 2", Voices.acousticBass.clone());
+const channel3 = new Channel("Track 3", Voices.acousticPiano.clone());
+const channel4 = new Channel("Track 4", Voices.acousticPiano.clone());
 
 channelRack.add(channel1);
 channelRack.add(channel2);
 channelRack.add(channel3);
 channelRack.add(channel4);
-
-export const voices = [Voices.roland808, Voices.squarePluck, Voices.piano];
 
 export const notePitchClassValues = new Map();
 

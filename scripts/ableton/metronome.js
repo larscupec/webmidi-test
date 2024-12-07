@@ -1,12 +1,12 @@
 export class Metronome {
-  #beatClick = new Tone.Player("./sounds/roland808/rim_shot.wav").toDestination();
-  #firstBeatClick = new Tone.Player("./sounds/roland808/claves.wav").toDestination();
+  #beatClick = new Audio("./sounds/roland808/rim_shot.wav");
+  #firstBeatClick = new Audio("./sounds/roland808/claves.wav");
 
   playBeatClick() {
-    this.#beatClick.start();
+    this.#beatClick.play();
   }
 
   playFirstBeatClick() {
-    this.#firstBeatClick.start();
+    this.#firstBeatClick.play();
   }
 }

@@ -7,7 +7,7 @@ import { Note } from "./note.js";
 export class Channel {
   #name;
   #voice;
-  #volumeLeveldB = 0;
+  #volumeLeveldB = 100;
   #isMuted = false;
   #isSoloed = false;
   #isArmedForRecording = false;
