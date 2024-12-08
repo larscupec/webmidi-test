@@ -9,7 +9,7 @@ export class SoundfontInstrument extends Voice {
 
     this.#patch = new Soundfont(
       this._audioContext, 
-      { instrument: instrument }
+      { instrument: instrument, kit: "FluidR3_GM" }
     );
   }
 

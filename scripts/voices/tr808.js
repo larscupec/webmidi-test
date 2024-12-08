@@ -18,7 +18,7 @@ export class TR808 extends Voice {
 
     switch (pitch) {
       case "C4":
-        sound = "kick";
+        sound = "kick/bd5075";
         break;
       case "C#4":
         sound = "rimshot";
