@@ -173,12 +173,12 @@ function onEnabled() {
 
   inputSelect.addEventListener("change", (event) => changeInputDevice(event));
   document.addEventListener("keydown", (event) => {
-    if (!event.repeat) {
+    if (!event.repeat && !event.ctrlKey) {
       virtualKeyboard.keyDown(event.key);
     }
   });
   document.addEventListener("keyup", (event) => {
-    if (!event.repeat) {
+    if (!event.repeat && !event.ctrlKey) {
       virtualKeyboard.keyUp(event.key);
     }
   });
@@ -376,14 +376,14 @@ function drawKeyboard() {
 
       let key = document.getElementById(`${note}${octave}`);
 
-      key.addEventListener("mousedown", (event) => keyDown(key.dataset.note, event));
+      key.addEventListener("mousedown", (event) => keyDown(key.dataset.note, 127, event));
       key.addEventListener("mouseup", (event) => keyUp(key.dataset.note, event));
       key.addEventListener("mouseout", (event) => keyUp(key.dataset.note, event));
 
       if (hasSharp) {
         let keySharp = document.getElementById(`${note}#${octave}`);
 
-        keySharp.addEventListener("mousedown", (event) => keyDown(keySharp.dataset.note, event));
+        keySharp.addEventListener("mousedown", (event) => keyDown(keySharp.dataset.note, 127, event));
         keySharp.addEventListener("mouseup", (event) => keyUp(keySharp.dataset.note, event));
         keySharp.addEventListener("mouseout", (event) => keyUp(keySharp.dataset.note, event));
       }
@@ -503,7 +503,8 @@ function selectInputDevice(deviceName) {
     if (!("identifier" in e.note)) return;
 
     let pitch = e.note.identifier;
-    keyDown(pitch);
+    let velocity = e.note.rawAttack;
+    keyDown(pitch, velocity);
   });
 
   currentInputDevice?.addListener("noteoff", (e) => {
@@ -559,7 +560,7 @@ function deletePattern(event, channelIndex) {
 
 // MIDI input callbacks
 
-function keyDown(pitch, event = null) {
+function keyDown(pitch, velocity, event = null) {
   let pianoKey = document.getElementById(pitch);
 
   if (pianoKey) {
@@ -573,10 +574,10 @@ function keyDown(pitch, event = null) {
   let currentChannelVoice = Ableton.voices.find(
     (voice) => voice.getName() === currentChannel.getVoice().getName()
   );
-  currentChannelVoice.playNote(pitch, 0, currentChannel.getVolume());
+  currentChannelVoice.playNote(pitch, velocity, 0, currentChannel.getVolume());
 
   if (Ableton.player.getIsRecording() && currentChannel.getIsArmedForRecording()) {
-    currentChannel.recordNoteStart(pitch, Ableton.player.getCurrentSongTimeMs());
+    currentChannel.recordNoteStart(pitch, velocity, Ableton.player.getCurrentSongTimeMs());
   }
 }
 

@@ -22,30 +22,30 @@ export class Channel {
   }
 
   play(note) {
-    this.#voice.playNote(note.getPitch(), note.getDurationMs(), this.#volume);
+    this.#voice.playNote(note.getPitch(), note.getVelocity(), note.getDurationMs(), this.#volume);
   }
 
-  recordNoteStart(pitch, currentSongTimeMs) {
-    this.#recordBuffer.push(pitch, Timing.quantizeTimeToStep(currentSongTimeMs, "loose"));
+  recordNoteStart(pitch, velocity, currentSongTimeMs) {
+    this.#recordBuffer.push(pitch, velocity, Timing.quantizeTimeToStep(currentSongTimeMs, "loose"));
   }
 
   recordNoteEnd(pitch, currentSongTimeMs, drawCallback) {
-    let startStep = this.#recordBuffer.pop(pitch);
-    if (startStep) {
-      let durationMs = currentSongTimeMs - Timing.convStepToTimeMs(startStep);
+    let noteStart = this.#recordBuffer.pop(pitch);
+    if (noteStart) {
+      let durationMs = currentSongTimeMs - Timing.convStepToTimeMs(noteStart.startStep);
 
       let stepDurationMs = Timing.calcStepDurationMs();
       if (durationMs < stepDurationMs) {
         durationMs = stepDurationMs;
       }
 
-      let note = new Note(pitch, durationMs);
+      let note = new Note(pitch, noteStart.velocity, durationMs);
 
-      this.#pattern.add(note, startStep);
+      this.#pattern.add(note, noteStart.startStep);
 
-      NoteHistory.add({ channel: this, note: note, startStep: startStep });
+      NoteHistory.add({ channel: this, note: note, startStep: noteStart.startStep });
 
-      drawCallback?.(this, note, startStep);
+      drawCallback?.(this, note, noteStart.startStep);
     }
   }
 
@@ -97,7 +97,11 @@ export class Channel {
   }
 
   setVolume(volume) {
-    this.#volume = volume;
+    if (this.#isMuted) {
+      this.#preMuteVolume = volume;
+    } else {
+      this.#volume = volume;
+    }
   }
 
   setIsArmedForRecording(isArmedForRecording) {

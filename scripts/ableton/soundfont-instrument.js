@@ -13,13 +13,13 @@ export class SoundfontInstrument extends Voice {
     );
   }
 
-  playNote(pitch, durationMs, volume) {
+  playNote(pitch, velocity, durationMs, volume) {
     this.#patch.output.setVolume(volume);
 
     if (durationMs > 0) {
-      this.#patch.start({ note: pitch, duration: durationMs / 1000.0 });
+      this.#patch.start({ note: pitch, velocity: velocity, duration: durationMs / 1000.0 });
     } else {
-      this.#patch.start({ note: pitch });
+      this.#patch.start({ note: pitch, velocity: velocity });
     }
   }
 

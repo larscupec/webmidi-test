@@ -37,7 +37,7 @@ export class VirtualKeyboard extends MIDIDevice {
   }
 
   keyDown(key) {
-    let event = { note: {} };
+    let event = { note: { rawAttack: 127 } };
 
     switch (key) {
       case "q":

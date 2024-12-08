@@ -11,8 +11,8 @@ export class TR808 extends Voice {
     super("TR-808", audioContext);
   }
 
-  playNote(pitch, durationMs, volumeLeveldB) {
-    this.#tr808.output.setVolume(volumeLeveldB);
+  playNote(pitch, velocity, durationMs, volume) {
+    this.#tr808.output.setVolume(volume);
 
     let sound;
 
@@ -69,9 +69,9 @@ export class TR808 extends Voice {
     }
 
     if (durationMs > 0) {
-      this.#tr808.start({ note: sound, duration: durationMs / 1000.0 });
+      this.#tr808.start({ note: sound, velocity: velocity, duration: durationMs / 1000.0 });
     } else {
-      this.#tr808.start({ note: sound });
+      this.#tr808.start({ note: sound, velocity: velocity });
     }
   }
 

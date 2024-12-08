@@ -1,15 +1,15 @@
 export class RecordBuffer {
-  #notes = new Map();
+  #noteStarts = new Map();
 
-  push(pitch, startStep) {
-    this.#notes.set(pitch, startStep);
+  push(pitch, velocity, startStep) {
+    this.#noteStarts.set(pitch, { startStep: startStep, velocity: velocity });
   }
 
   pop(pitch) {
-    let startStep = this.#notes.get(pitch);
+    let noteStart = this.#noteStarts.get(pitch);
 
-    this.#notes.delete(pitch);
+    this.#noteStarts.delete(pitch);
 
-    return startStep;
+    return noteStart;
   }
 }

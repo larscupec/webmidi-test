@@ -1,14 +1,20 @@
 export class Note {
   #pitch;
   #durationMs;
+  #velocity;
 
-  constructor(pitch, durationMs) {
+  constructor(pitch, velocity, durationMs) {
     this.#pitch = pitch;
+    this.#velocity = velocity;
     this.#durationMs = durationMs;
   }
 
   getPitch() {
     return this.#pitch;
+  }
+
+  getVelocity() {
+    return this.#velocity;
   }
 
   getDurationMs() {
