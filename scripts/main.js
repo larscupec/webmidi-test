@@ -471,7 +471,7 @@ function toggleIsChannelArmed(event, channelIndex) {
 
 function setChannelVolume(event, channelIndex) {
   let currentChannel = Ableton.channelRack.getChannelAt(channelIndex);
-  currentChannel.setVolumeLevel(event.target.value);
+  currentChannel.setVolume(event.target.value);
   event.stopPropagation();
 }
 
@@ -573,7 +573,7 @@ function keyDown(pitch, event = null) {
   let currentChannelVoice = Ableton.voices.find(
     (voice) => voice.getName() === currentChannel.getVoice().getName()
   );
-  currentChannelVoice.playNote(pitch, 0, currentChannel.getVolumeLeveldB());
+  currentChannelVoice.playNote(pitch, 0, currentChannel.getVolume());
 
   if (Ableton.player.getIsRecording() && currentChannel.getIsArmedForRecording()) {
     currentChannel.recordNoteStart(pitch, Ableton.player.getCurrentSongTimeMs());

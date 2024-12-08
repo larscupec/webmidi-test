@@ -1,5 +1,5 @@
 # Ableton Online (working title)
 
-A 16-step sequencer for making loops online.
+a 16-step sequencer for making beats online
 
 ## Chapter

@@ -7,10 +7,11 @@ import { Note } from "./note.js";
 export class Channel {
   #name;
   #voice;
-  #volumeLeveldB = 100;
+  #volume = 100;
   #isMuted = false;
   #isSoloed = false;
   #isArmedForRecording = false;
+  #preMuteVolume = this.#volume;
 
   #pattern = new Pattern();
   #recordBuffer = new RecordBuffer();
@@ -21,9 +22,7 @@ export class Channel {
   }
 
   play(note) {
-    if (!this.#isMuted) {
-      this.#voice.playNote(note.getPitch(), note.getDurationMs(), this.#volumeLeveldB);
-    }
+    this.#voice.playNote(note.getPitch(), note.getDurationMs(), this.#volume);
   }
 
   recordNoteStart(pitch, currentSongTimeMs) {
@@ -66,8 +65,8 @@ export class Channel {
     return this.#voice;
   }
 
-  getVolumeLeveldB() {
-    return this.#volumeLeveldB;
+  getVolume() {
+    return this.#volume;
   }
 
   getPattern() {
@@ -84,14 +83,21 @@ export class Channel {
 
   setIsMuted(isMuted) {
     this.#isMuted = isMuted;
+
+    if (this.#isMuted) {
+      this.#preMuteVolume = this.#volume;
+      this.#volume = 0;
+    } else {
+      this.#volume = this.#preMuteVolume;
+    }
   }
 
   setIsSoloed(isSoloed) {
     this.#isSoloed = isSoloed;
   }
 
-  setVolumeLevel(volumeLeveldB) {
-    this.#volumeLeveldB = volumeLeveldB;
+  setVolume(volume) {
+    this.#volume = volume;
   }
 
   setIsArmedForRecording(isArmedForRecording) {

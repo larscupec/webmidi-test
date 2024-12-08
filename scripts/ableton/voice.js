@@ -7,7 +7,7 @@ export class Voice {
     this._audioContext = audioContext;
   }
 
-  playNote(pitch, durationMs, volumeLeveldB) { }
+  playNote(pitch, durationMs, volume) { }
   
   stopNote(pitch) { }
 
