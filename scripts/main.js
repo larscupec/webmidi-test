@@ -511,7 +511,8 @@ function selectInputDevice(deviceName) {
     if (!("identifier" in e.note)) return;
 
     let pitch = e.note.identifier;
-    keyUp(pitch);
+    let noteNumber = e.note.number;
+    keyUp(pitch, noteNumber);
   });
 }
 
@@ -581,7 +582,7 @@ function keyDown(pitch, velocity, event = null) {
   }
 }
 
-function keyUp(pitch, event = null) {
+function keyUp(pitch, noteNumber, event = null) {
   let pianoKey = document.getElementById(pitch);
 
   if (pianoKey) {
@@ -595,7 +596,7 @@ function keyUp(pitch, event = null) {
   let currentChannelVoice = Ableton.voices.find(
     (voice) => voice.getName() === currentChannel.getVoice().getName()
   );
-  currentChannelVoice.stopNote(pitch);
+  currentChannelVoice.stopNote(noteNumber);
 
   let pattern = currentChannel.getPattern();
   let player = Ableton.player;

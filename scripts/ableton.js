@@ -15,10 +15,16 @@ export const player = new Player(channelRack);
 
 export const audioContext = Voices.audioContext;
 
-export const voices = [Voices.acousticPiano, Voices.tr808, Voices.acousticBass];
+export const voices = [
+  Voices.acousticPiano, 
+  Voices.electricPiano, 
+  Voices.acousticBass, 
+  Voices.electricBass,
+  Voices.tr808,
+];
 
 const channel1 = new Channel("Track 1", Voices.tr808.clone());
-const channel2 = new Channel("Track 2", Voices.acousticBass.clone());
+const channel2 = new Channel("Track 2", Voices.electricBass.clone());
 const channel3 = new Channel("Track 3", Voices.acousticPiano.clone());
 const channel4 = new Channel("Track 4", Voices.acousticPiano.clone());
 

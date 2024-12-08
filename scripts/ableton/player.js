@@ -36,10 +36,6 @@ export class Player {
   }
 
   #startSong(updateUICallback) {
-    if (this.#isArmedForRecording) {
-      this.#isRecording = true;
-    }
-
     let startTimeMs = Date.now() - this.#currentSongTimMs;
 
     this.#songTimer = setTimeout(() => this.#update(startTimeMs, updateUICallback));
@@ -69,7 +65,9 @@ export class Player {
         () => this.#startSong(updateUICallback),
         Timing.calcBeatDurationMs()
       );
-
+      if (this.#isArmedForRecording) {
+        this.#isRecording = true;
+      }
       return;
     }
 
@@ -153,6 +151,9 @@ export class Player {
 
   setIsArmedForRecording(isArmedForRecording) {
     this.#isArmedForRecording = isArmedForRecording;
-    this.#isRecording = isArmedForRecording;
+    
+    if (this.#isSongPlaying) {
+      this.#isRecording = isArmedForRecording;
+    }
   }
 }

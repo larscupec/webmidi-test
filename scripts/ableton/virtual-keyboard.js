@@ -79,9 +79,6 @@ export class VirtualKeyboard extends MIDIDevice {
       case "i":
         event.note.identifier = "C5";
         break;
-    
-      default:
-        break;
     }
 
     this.#noteOnCallback?.(event);
@@ -93,45 +90,55 @@ export class VirtualKeyboard extends MIDIDevice {
     switch (key) {
       case "q":
         event.note.identifier = "C4";
+        event.note.number = 60;
         break;
       case "2":
         event.note.identifier = "C#4";
+        event.note.number = 61;
         break;
       case "w":
         event.note.identifier = "D4";
+        event.note.number = 62;
         break;
       case "3":
         event.note.identifier = "D#4";
+        event.note.number = 63;
         break;
       case "e":
         event.note.identifier = "E4";
+        event.note.number = 64;
         break;
       case "r":
         event.note.identifier = "F4";
+        event.note.number = 65;
         break;
       case "5":
         event.note.identifier = "F#4";
+        event.note.number = 66;
         break;
       case "t":
         event.note.identifier = "G4";
+        event.note.number = 67;
         break;
       case "6":
         event.note.identifier = "G#4";
+        event.note.number = 68;
         break;
       case "z":
         event.note.identifier = "A4";
+        event.note.number = 69;
         break;
       case "7":
         event.note.identifier = "A#4";
+        event.note.number = 70;
         break;
       case "u":
         event.note.identifier = "B4";
+        event.note.number = 71;
         break;
       case "i":
         event.note.identifier = "C5";
-        break;
-    
-      default:
+        event.note.number = 72;
         break;
     }
 

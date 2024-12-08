@@ -75,8 +75,8 @@ export class TR808 extends Voice {
     }
   }
 
-  stopNote(pitch) {
-    this.#tr808.stop({ note: pitch });
+  stopNote(noteNumber) {
+    this.#tr808.stop({ note: noteNumber });
   }
 
   clone() {

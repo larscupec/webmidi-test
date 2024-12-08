@@ -23,8 +23,8 @@ export class SoundfontInstrument extends Voice {
     }
   }
 
-  stopNote(pitch) {
-    this.#patch.stop({ note: pitch });
+  stopNote(noteNumber) {
+    this.#patch.stop(noteNumber);
   }
 
   clone() { }

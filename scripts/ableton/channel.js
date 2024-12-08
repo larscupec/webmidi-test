@@ -34,9 +34,8 @@ export class Channel {
     if (noteStart) {
       let durationMs = currentSongTimeMs - Timing.convStepToTimeMs(noteStart.startStep);
 
-      let stepDurationMs = Timing.calcStepDurationMs();
-      if (durationMs < stepDurationMs) {
-        durationMs = stepDurationMs;
+      if (durationMs < 0) {
+        durationMs = Timing.calcStepDurationMs();
       }
 
       let note = new Note(pitch, noteStart.velocity, durationMs);
@@ -82,6 +81,8 @@ export class Channel {
   }
 
   setIsMuted(isMuted) {
+    if (isMuted == this.#isMuted) return;
+
     this.#isMuted = isMuted;
 
     if (this.#isMuted) {
