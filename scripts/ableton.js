@@ -24,6 +24,7 @@ export const voices = [
   Voices.acousticBass,
   Voices.electricBass,
   Voices.tr808,
+  Voices.casioRZ1,
 ];
 
 const channel1 = new Channel("Track 1", Voices.tr808.clone());

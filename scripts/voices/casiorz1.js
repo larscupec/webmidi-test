@@ -1,8 +1,8 @@
 import { Drum } from "../ableton/drum.js";
 
-export class TR808 extends Drum {
+export class CasioRZ1 extends Drum {
   constructor(audioContext) {
-    super("TR-808", audioContext, "TR-808");
+    super("Casio-RZ1", audioContext, "Casio-RZ1");
   }
 
   playNote(pitch, velocity, durationMs, volume) {
@@ -10,10 +10,7 @@ export class TR808 extends Drum {
 
     switch (pitch) {
       case "C4":
-        sample = "kick/bd5075";
-        break;
-      case "C#4":
-        sample = "rimshot";
+        sample = "kick";
         break;
       case "D4":
         sample = "snare";
@@ -22,37 +19,25 @@ export class TR808 extends Drum {
         sample = "clap";
         break;
       case "F#4":
-        sample = "hihat-close";
+        sample = "hihat/closed";
         break;
       case "A4":
-        sample = "tom-low";
+        sample = "tom/1";
         break;
       case "A#4":
-        sample = "hihat-open";
+        sample = "hihat/open";
         break;
       case "C5":
-        sample = "mid-tom";
+        sample = "tom/2";
         break;
       case "C#5":
-        sample = "cymbal";
+        sample = "crash";
         break;
       case "D5":
-        sample = "tom-hi";
+        sample = "tom/3";
         break;
       case "G#5":
         sample = "cowbell";
-        break;
-      case "D6":
-        sample = "conga-mid";
-        break;
-      case "D#6":
-        sample = "conga-hi";
-        break;
-      case "E6":
-        sample = "conga-low";
-        break;
-      case "A#6":
-        sample = "maraca";
         break;
       case "D#7":
         sample = "clave";
@@ -64,6 +49,6 @@ export class TR808 extends Drum {
   }
 
   clone() {
-    return new TR808(this._audioContext);
+    return new CasioRZ1(this._audioContext);
   }
 }

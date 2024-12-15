@@ -4,6 +4,7 @@ import { OverdrivenGuitar } from "./voices/overdriven-guitar.js";
 import { AcousticBass } from "./voices/acoustic-bass.js";
 import { ElectricBass } from "./voices/electric-bass.js";
 import { TR808 } from "./voices/tr808.js";
+import { CasioRZ1 } from "./voices/casiorz1.js";
 import { Accordion } from "./voices/accordion.js";
 import { DistortionGuitar } from "./voices/distortion-guitar.js";
 
@@ -24,3 +25,4 @@ export const electricBass = new ElectricBass(audioContext);
 
 // Drums
 export const tr808 = new TR808(audioContext);
+export const casioRZ1 = new CasioRZ1(audioContext);
