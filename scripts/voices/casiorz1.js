@@ -19,22 +19,22 @@ export class CasioRZ1 extends Drum {
         sample = "clap";
         break;
       case "F#4":
-        sample = "hihat/closed";
+        sample = "hihat-closed";
         break;
       case "A4":
-        sample = "tom/1";
+        sample = "tom-1";
         break;
       case "A#4":
-        sample = "hihat/open";
+        sample = "hihat-open";
         break;
       case "C5":
-        sample = "tom/2";
+        sample = "tom-2";
         break;
       case "C#5":
         sample = "crash";
         break;
       case "D5":
-        sample = "tom/3";
+        sample = "tom-3";
         break;
       case "G#5":
         sample = "cowbell";
