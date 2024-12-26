@@ -26,13 +26,14 @@ export class Channel {
   }
 
   recordNoteStart(pitch, velocity, currentSongTimeMs) {
-    this.#recordBuffer.push(pitch, velocity, Timing.quantizeTimeToStep(currentSongTimeMs, "loose"));
+    this.#recordBuffer.add(pitch, velocity, currentSongTimeMs);
   }
 
   recordNoteEnd(pitch, currentSongTimeMs, drawCallback) {
-    let noteStart = this.#recordBuffer.pop(pitch);
+    let noteStart = this.#recordBuffer.get(pitch);
     if (noteStart) {
-      let durationMs = currentSongTimeMs - Timing.convStepToTimeMs(noteStart.startStep);
+      let durationMs = currentSongTimeMs - noteStart.startTime;
+      let startStep = Timing.quantizeTimeToStep(noteStart.startTime, "loose");
 
       if (durationMs < 0) {
         durationMs = Timing.calcStepDurationMs();
@@ -40,11 +41,11 @@ export class Channel {
 
       let note = new Note(pitch, noteStart.velocity, durationMs);
 
-      this.#pattern.add(note, noteStart.startStep);
+      this.#pattern.add(note, startStep);
 
-      NoteHistory.add({ channel: this, note: note, startStep: noteStart.startStep });
+      NoteHistory.add({ channel: this, note: note, startStep: startStep });
 
-      drawCallback?.(this, note, noteStart.startStep);
+      drawCallback?.(this, note, startStep);
     }
   }
 
