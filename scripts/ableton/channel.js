@@ -31,22 +31,26 @@ export class Channel {
 
   recordNoteEnd(pitch, currentSongTimeMs, drawCallback) {
     let noteStart = this.#recordBuffer.get(pitch);
-    if (noteStart) {
-      let durationMs = currentSongTimeMs - noteStart.startTime;
-      let startStep = Timing.quantizeTimeToStep(noteStart.startTime, "loose");
+    this.#recordBuffer.remove(pitch);
 
-      if (durationMs < 0) {
-        durationMs = Timing.calcStepDurationMs();
-      }
-
-      let note = new Note(pitch, noteStart.velocity, durationMs);
-
-      this.#pattern.add(note, startStep);
-
-      NoteHistory.add({ channel: this, note: note, startStep: startStep });
-
-      drawCallback?.(this, note, startStep);
+    if (!noteStart) {
+      return;
     }
+
+    let durationMs = currentSongTimeMs - noteStart.startTime;
+    let startStep = Timing.quantizeTimeToStep(noteStart.startTime, "loose");
+
+    if (durationMs < 0) {
+      durationMs = Timing.calcStepDurationMs();
+    }
+
+    let note = new Note(pitch, noteStart.velocity, durationMs);
+
+    this.#pattern.add(note, startStep);
+
+    NoteHistory.add({ channel: this, note: note, startStep: startStep });
+
+    drawCallback?.(this, note, startStep);
   }
 
   getIsMuted() {

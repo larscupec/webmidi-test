@@ -5,11 +5,11 @@ export class RecordBuffer {
     this.#noteStarts.set(pitch, { startTime: startTime, velocity: velocity });
   }
 
-  get(pitch) {
-    let noteStart = this.#noteStarts.get(pitch);
-
+  remove(pitch) {
     this.#noteStarts.delete(pitch);
+  }
 
-    return noteStart;
+  get(pitch) {
+    return this.#noteStarts.get(pitch);
   }
 }
