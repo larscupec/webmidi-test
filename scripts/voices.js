@@ -7,6 +7,7 @@ import { TR808 } from "./voices/tr808.js";
 import { CasioRZ1 } from "./voices/casiorz1.js";
 import { Accordion } from "./voices/accordion.js";
 import { DistortionGuitar } from "./voices/distortion-guitar.js";
+import { SynthBass } from "./voices/synth-bass.js";
 
 export const audioContext = new AudioContext();
 
@@ -22,6 +23,7 @@ export const distortionGuitar = new DistortionGuitar(audioContext);
 // Basses
 export const acousticBass = new AcousticBass(audioContext);
 export const electricBass = new ElectricBass(audioContext);
+export const synthBass = new SynthBass(audioContext);
 
 // Drums
 export const tr808 = new TR808(audioContext);

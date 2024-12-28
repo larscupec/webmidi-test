@@ -23,6 +23,7 @@ export const voices = [
   Voices.distortionGuitar,
   Voices.acousticBass,
   Voices.electricBass,
+  Voices.synthBass,
   Voices.tr808,
   Voices.casioRZ1,
 ];
