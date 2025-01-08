@@ -1,5 +1,6 @@
 #channel-rack {
   flex: 1;
+  grid-area: rack;
   margin-right: 5px;
   display: grid;
   grid-template-rows: auto repeat(8, 1fr);
@@ -38,6 +39,7 @@
   flex-direction: row;
   gap: 10px;
   align-items: center;
+  justify-content: space-between;
 }
 
 .channel-info button {
@@ -50,7 +52,7 @@
 }
 
 .voice-select {
-  min-width: 120px;
+  width: 30%;
   text-align: center;
 }
 
@@ -60,5 +62,5 @@
 }
 
 .channel-fader {
-  min-width: 100px;
+  width: 30%;
 }

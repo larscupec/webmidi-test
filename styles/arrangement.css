@@ -1,5 +1,6 @@
 #arrangement {
   flex: 3;
+  grid-area: arrangement;
   margin-left: 5px;
   background-color: rgb(190, 190, 190);
   display: grid;
