@@ -32,6 +32,16 @@ const BUTTON_ACTIVE_BORDER_COLOR = "rgb(72, 72, 81)";
 window.onresize = () => {
   updatePlayheadPosition();
   resizePatternCanvases();
+
+  if (window.innerWidth < 1000) {
+    for (const channelName of document.getElementsByClassName("channel-name")) {
+      channelName.innerText = channelName.innerText.replace(/[^0-9]/g, "");
+    }
+  } else {
+    for (const channelName of document.getElementsByClassName("channel-name")) {
+      channelName.innerText = "Track " + channelName.innerText.replace(/[^0-9]/g, "");
+    }
+  }
 };
 window.onload = () => {
   drawChannelRack();
@@ -204,6 +214,7 @@ function drawChannelRack() {
     let channelName = document.createElement("p");
     channelName.id = `channel-${i}-name`;
     channelName.innerText = `${Ableton.channelRack.getChannelAt(i).getName()}`;
+    channelName.className = "channel-name";
 
     channelInfo.appendChild(channelName);
 
