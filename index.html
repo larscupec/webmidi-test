@@ -23,13 +23,11 @@
       <input type="number" name="bpm" id="bpm-select" value="120" oninput="setBPM()">
       <label for="bpm">BPM</label>
     </section>
-
     <section id="playback">
       <p id="play-btn" onclick="playPauseSong()">▶</p>
       <p id="stop-btn" onclick="stopSong()">⏹</p>
       <p id="record-btn" onclick="toggleRecording()">⏺</p>
     </section>
-
     <section id="settings">
       <button type="button" id="metronome-btn" onclick="toggleMetronome()">Met</button>
       <button type="button" id="keyboard-btn" onclick="toggleKeyboardVisibility()">Keys</button>
@@ -39,20 +37,17 @@
       </div>
     </section>
   </header>
-
   <main>
     <section id="channel-rack">
       <div id="channel-rack-header">
         <p id="song-time">00:00:00</p>
       </div>
     </section>
-
     <section id="arrangement">
       <div id="timeline"></div>
       <div id="playhead"></div>
     </section>
   </main>
-
   <footer id="footer">
     <section id="keyboard"></section>
   </footer>

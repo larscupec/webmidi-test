@@ -32,16 +32,7 @@ const BUTTON_ACTIVE_BORDER_COLOR = "rgb(72, 72, 81)";
 window.onresize = () => {
   updatePlayheadPosition();
   resizePatternCanvases();
-
-  if (window.innerWidth < 1000) {
-    for (const channelName of document.getElementsByClassName("channel-name")) {
-      channelName.innerText = channelName.innerText.replace(/[^0-9]/g, "");
-    }
-  } else {
-    for (const channelName of document.getElementsByClassName("channel-name")) {
-      channelName.innerText = "Track " + channelName.innerText.replace(/[^0-9]/g, "");
-    }
-  }
+  shrinkChannelNames();
 };
 window.onload = () => {
   drawChannelRack();
@@ -795,5 +786,20 @@ function resizePatternCanvases() {
     patternCanvas.height = Math.floor(patternHeight);
 
     redrawPattern(i);
+  }
+}
+
+function shrinkChannelNames() {
+  let channelRack = document.getElementById("channel-rack");
+  let channelNames = document.getElementsByClassName("channel-name");
+
+  for (const channelName of channelNames) {
+    let channelNumber = channelName.innerText.replace(/[^0-9]/g, "");
+
+    if (channelRack.offsetWidth < 406) {
+      channelName.innerText = channelNumber;
+    } else {
+      channelName.innerText = "Track " + channelNumber;
+    }
   }
 }

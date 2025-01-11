@@ -1,7 +1,6 @@
 #channel-rack {
   flex: 1;
   grid-area: rack;
-  margin-right: 5px;
   display: grid;
   grid-template-rows: auto repeat(8, 1fr);
 }
@@ -24,13 +23,12 @@
 }
 
 .channel:nth-child(2) {
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-radius: 5px 5px 0 0;
 }
 
 .channel:last-child {
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
+  border-radius: 0 0 5px 5px;
+
 }
 
 .channel-info {

@@ -12,19 +12,15 @@ body {
   min-height: 100%;
   display: flex;
   flex-direction: column;
-  background-color: rgb(164, 164, 164);
+  background-color: rgba(0, 0, 0, 0.36);
 }
 
-p, h1 {
+p, h1, label {
   user-select: none;
 }
 
-p:hover, h1:hover {
-  cursor: default;
-}
-
 header {
-  margin: 10px;
+  padding: 10px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   align-items: center;
@@ -32,8 +28,7 @@ header {
 }
 
 #song-info button {
-  padding-left: 5px;
-  padding-right: 5px;
+  padding: 0 5px 0 5px;
 }
 
 #bpm-select {
@@ -61,8 +56,7 @@ header {
 }
 
 #settings select {
-  padding-left: 5px;
-  padding-right: 5px;
+  padding: 0 5px 0 5px;
   text-align: center;
 }
 
@@ -72,15 +66,18 @@ main {
   grid-template-columns: 1fr 3fr;
   min-height: 100%;
   flex: 1;
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-bottom: 10px;
+  padding: 0 10px 10px 10px;
+  gap: 10px;
+}
 
-  @media screen and (max-width: 1300px) {
+@media screen and (max-width: 1300px) {
+  main {
     grid-template-columns: 1fr 2fr;
   }
+}
 
-  @media screen and (max-width: 800px) {
+@media screen and (max-width: 800px) {
+  main {
     grid-template-columns: 1fr 1fr;
   }
 }
@@ -92,8 +89,6 @@ footer {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin-left: 10px;
-  margin-right: 10px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  margin: 0 10px 0 10px;
+  border-radius: 5px 5px 0 0;
 }
