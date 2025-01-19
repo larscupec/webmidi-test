@@ -20,13 +20,13 @@ let recordButtonBlinkTimer = null;
 
 // Colors
 
-const RECORD_BUTTON_RED = "rgb(237, 40, 57)";
-const PLAY_BUTTON_GREEN = "rgb(198, 249, 83)";
+const RECORD_BUTTON_RED = "brightness(0) saturate(100%) invert(20%) sepia(71%) saturate(5667%) hue-rotate(346deg) brightness(101%) contrast(86%)";
+const PLAY_BUTTON_GREEN = "brightness(0) saturate(100%) invert(100%) sepia(31%) saturate(3829%) hue-rotate(16deg) brightness(99%) contrast(89%)";
 const BUTTON_COLOR = "rgb(233, 233, 237)";
 const BUTTON_BORDER_COLOR = "rgb(143, 143, 157)";
 const BUTTON_ACTIVE_COLOR = "rgb(177, 177, 185)";
 const BUTTON_ACTIVE_BORDER_COLOR = "rgb(72, 72, 81)";
-
+const BLACK = "brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(7500%) hue-rotate(327deg) brightness(96%) contrast(104%)";
 // Initialize window function delegates
 
 window.onresize = () => {
@@ -60,21 +60,31 @@ window.onload = () => {
   document.addEventListener("keydown", (event) => recordKeyPressed(event));
   document.addEventListener("keydown", (event) => undoKeyPressed(event));
   document.addEventListener("keydown", (event) => redoKeyPressed(event));
+
+  document.getElementById("play-btn").addEventListener("click", (event) => {
+    playPauseSong();
+  });
+  document.getElementById("stop-btn").addEventListener("click", (event) => {
+    stopSong();
+  });
+  document.getElementById("record-btn").addEventListener("click", (event) => {
+    toggleRecording();
+  });
 };
 window.playPauseSong = () => {
   if (Ableton.player.getIsSongPlaying()) {
     Ableton.player.pauseSong();
 
-    document.getElementById("play-btn").innerText = "▶";
+    document.getElementById("play-btn").src = "images/play.svg";
 
     playButtonBlinkTimer = setTimeout(() => changePlayButtonColor(false));
     clearTimeout(recordButtonBlinkTimer);
 
     let recordButton = document.getElementById("record-btn");
     if (Ableton.player.getIsArmedForRecording()) {
-      recordButton.style.color = RECORD_BUTTON_RED;
+      recordButton.style.filter = RECORD_BUTTON_RED;
     } else {
-      recordButton.style.color = "black";
+      recordButton.style.filter = BLACK;
     }
   } else {
     Ableton.player.playSong(() => {
@@ -87,8 +97,8 @@ window.playPauseSong = () => {
     document.getElementById("playhead").style.visibility = "visible";
 
     let playButton = document.getElementById("play-btn");
-    playButton.innerText = "⏸";
-    playButton.style.color = "black";
+    playButton.src = "images/pause.svg";
+    playButton.style.filter = BLACK;
 
     clearTimeout(playButtonBlinkTimer);
 
@@ -103,8 +113,8 @@ window.stopSong = () => {
   document.getElementById("playhead").style.visibility = "hidden";
 
   let playButton = document.getElementById("play-btn");
-  playButton.innerText = "▶";
-  playButton.style.color = "black";
+  playButton.src = "images/play.svg";
+  playButton.style.filter = BLACK;
 
   document.getElementById("song-time").innerText =
     msToMinSecMs(Ableton.player.getCurrentSongTimeMs());
@@ -115,9 +125,9 @@ window.stopSong = () => {
 
   let recordButton = document.getElementById("record-btn");
   if (Ableton.player.getIsArmedForRecording()) {
-    recordButton.style.color = RECORD_BUTTON_RED;
+    recordButton.style.filter = RECORD_BUTTON_RED;
   } else {
-    recordButton.style.color = "black";
+    recordButton.style.filter = BLACK;
   }
 };
 window.toggleRecording = () => {
@@ -127,12 +137,12 @@ window.toggleRecording = () => {
   let recordButton = document.getElementById("record-btn");
 
   if (Ableton.player.getIsArmedForRecording()) {
-    recordButton.style.color = RECORD_BUTTON_RED;
+    recordButton.style.filter = RECORD_BUTTON_RED;
     if (Ableton.player.getIsSongPlaying()) {
       recordButtonBlinkTimer = setTimeout(() => changeRecordButtonColor(true));
     }
   } else {
-    recordButton.style.color = "black";
+    recordButton.style.filter = BLACK;
     clearTimeout(recordButtonBlinkTimer);
   }
 };
@@ -692,18 +702,18 @@ function updatePlayheadPosition() {
 
 function changePlayButtonColor(isGreen) {
   if (isGreen) {
-    document.getElementById("play-btn").style.color = PLAY_BUTTON_GREEN;
+    document.getElementById("play-btn").style.filter = PLAY_BUTTON_GREEN;
   } else {
-    document.getElementById("play-btn").style.color = "black";
+    document.getElementById("play-btn").style.filter = BLACK;
   }
   playButtonBlinkTimer = setTimeout(() => changePlayButtonColor(!isGreen), 1000);
 }
 
 function changeRecordButtonColor(isRed) {
   if (isRed) {
-    document.getElementById("record-btn").style.color = RECORD_BUTTON_RED;
+    document.getElementById("record-btn").style.filter = RECORD_BUTTON_RED;
   } else {
-    document.getElementById("record-btn").style.color = "black";
+    document.getElementById("record-btn").style.filter = BLACK;
   }
   recordButtonBlinkTimer = setTimeout(() => changeRecordButtonColor(!isRed), 1000);
 }
