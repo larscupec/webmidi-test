@@ -6,8 +6,20 @@
 }
 
 #channel-rack-header {
-  height: 20px;
   text-align: right;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 5px;
+}
+
+#export-btn {
+  display: flex;
+  gap: 2px;
+}
+
+#export-btn:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .channel {
