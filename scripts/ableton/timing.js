@@ -46,20 +46,16 @@ export class Timing {
   }
 
   static quantizeTimeToStep(timeMs, mode = "strict") {
-    let songPerc = clamp(timeMs / this.calcSongDurationMs(), 0, 1);
+    let songPerc = timeMs / this.calcSongDurationMs();
     let totalStepCount = this.calcTotalStepCount();
     let step;
 
     switch (mode) {
       default: case "strict":
-        step = Math.floor(totalStepCount * songPerc) + 1;
+        step = Math.floor(totalStepCount * songPerc);
         break;
       case "loose":
-        step = Math.round(totalStepCount * songPerc) + 1;
-
-        if (step > totalStepCount) {
-          step = 1;
-        }
+        step = Math.round(totalStepCount * songPerc);
         break;
     }
 
@@ -68,7 +64,6 @@ export class Timing {
 
   static convStepToTimeMs(step) {
     let totalStepCount = this.calcTotalStepCount();
-    step = clamp(step, 0, totalStepCount);
     let stepPerc = step / totalStepCount;
 
     return Math.round(this.calcSongDurationMs() * stepPerc);
@@ -82,13 +77,4 @@ export class Timing {
   static calcTotalStepCount() {
     return this.#barCount * this.calcStepCountPerBar();
   }
-}
-
-// Helper functions
-
-function clamp(number, lower, upper) {
-  number = number < lower ? lower : number
-  number = number > upper ? upper : number
-
-  return number;
 }

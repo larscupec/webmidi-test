@@ -20,7 +20,7 @@ export class MidiFileWriter {
         const TIME_PER_STEP = 24;
         let allNotes = [];
 
-        for (let step = 1; step <= Timing.calcTotalStepCount(); step++) {
+        for (let step = 0; step < Timing.calcTotalStepCount(); step++) {
             const notes = pattern.getNotes(step);
 
             // First add all note starts
@@ -41,7 +41,9 @@ export class MidiFileWriter {
                 let noteStartMs = Timing.convStepToTimeMs(note.startStep);
                 let noteEndStep = Timing.quantizeTimeToStep(noteStartMs + note.getDurationMs(), "loose");
 
-                if (step == noteEndStep) {
+                if (step == noteEndStep ||
+                    step == Timing.calcTotalStepCount() - 1 && noteEndStep > Timing.calcTotalStepCount() - 1) {
+                        
                     track = track.noteOff({
                         time: time,
                         note: note.getPitch()

@@ -765,7 +765,7 @@ function drawNote(channel, note, startStep) {
   let patternCanvasWidth = patternCanvasBoundingRect.right - patternCanvasBoundingRect.left;
   let patternCanvasHeight = patternCanvasBoundingRect.bottom - patternCanvasBoundingRect.top;
 
-  let songPerc = (startStep - 1) / Timing.calcTotalStepCount();
+  let songPerc = (startStep) / Timing.calcTotalStepCount();
   let songDurationMs = Timing.calcSongDurationMs();
   let noteLengthPerc = note.getDurationMs() / songDurationMs;
 
@@ -796,11 +796,11 @@ function redrawPattern(channelIndex) {
   let hasNotes = false;
 
   for (let i = 0; i < Timing.calcTotalStepCount(); i++) {
-    let notes = channel.getPattern().getNotes(i + 1);
+    let notes = channel.getPattern().getNotes(i);
 
     notes.forEach(note => {
       hasNotes = true;
-      drawNote(channel, note, i + 1);
+      drawNote(channel, note, i);
     });
   }
 

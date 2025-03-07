@@ -98,6 +98,7 @@ export class Player {
 
       if (currentStep % (16 / Timing.getTimeSignature().getLowerNumeral()) == 1 &&
         this.#isMetronomeOn && currentStep != Timing.calcTotalStepCount()) {
+          
         if (currentStep % Timing.calcStepCountPerBar() == 1) {
           this.#metronome.playFirstBeatClick();
         } else {

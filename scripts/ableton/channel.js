@@ -38,6 +38,10 @@ export class Channel {
     }
 
     let durationMs = currentSongTimeMs - noteStart.startTime;
+    if (durationMs < 0) {
+      durationMs = Timing.calcSongDurationMs() - noteStart.startTime;
+    }
+
     let startStep = Timing.quantizeTimeToStep(noteStart.startTime, "loose");
 
     if (durationMs < 0) {
