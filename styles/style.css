@@ -27,6 +27,10 @@ header {
   justify-content: space-between;
 }
 
+#splash {
+  font-size: 22px;
+}
+
 #song-info button {
   padding: 0 5px 0 5px;
 }
