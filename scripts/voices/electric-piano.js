@@ -8,4 +8,8 @@ export class ElectricPiano extends SoundfontInstrument {
   clone() {
     return new ElectricPiano(this._audioContext);
   }
+
+  getMIDINumber() {
+    return 4;
+  }
 }

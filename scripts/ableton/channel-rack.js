@@ -25,6 +25,10 @@ export class ChannelRack {
     return this.#channels.findIndex(c => c === channel);
   }
 
+  getChannels() {
+    return this.#channels;
+  }
+
   setCurrentChannel(currentChannel) {
     this.#currentChannel = currentChannel;
   }

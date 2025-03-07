@@ -1,3 +1,5 @@
+import { Timing } from "./timing.js";
+
 export class Note {
   #pitch;
   #durationMs;

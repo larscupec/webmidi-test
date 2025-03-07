@@ -3,6 +3,7 @@ import { VirtualKeyboard } from "./ableton/virtual-keyboard.js";
 import * as Ableton from "./ableton.js";
 import { Timing } from "./ableton/timing.js";
 import { NoteHistory } from "./ableton/note-history.js";
+import { Drum } from "./ableton/drum.js";
 
 // MIDI Input
 
@@ -69,6 +70,9 @@ window.onload = () => {
   });
   document.getElementById("record-btn").addEventListener("click", (event) => {
     toggleRecording();
+  });
+  document.getElementById("export-btn").addEventListener("click", (event) => {
+    exportMIDI();
   });
 };
 window.playPauseSong = () => {
@@ -183,6 +187,7 @@ function onEnabled() {
   selectInputDevice(inputDevices[0].getName());
 
   inputSelect.addEventListener("change", (event) => changeInputDevice(event));
+  
   document.addEventListener("keydown", (event) => {
     if (!event.repeat && !event.ctrlKey) {
       virtualKeyboard.keyDown(event.key);
@@ -569,6 +574,27 @@ function deletePattern(event, channelIndex) {
   pattern.style.visibility = "hidden";
 
   event.stopPropagation();
+}
+
+function exportMIDI() {
+  const midiFileWriter = new Ableton.MidiFileWriter();
+
+  let nextChannelNumber = 0;
+  for (const channel of Ableton.channelRack.getChannels()) {
+    let channelNumber = nextChannelNumber;
+    if (channel.getVoice() instanceof Drum) {
+      channelNumber = 9;
+      nextChannelNumber--;
+    }
+    midiFileWriter.addTrack(channel.getVoice().getMIDINumber(), channelNumber, channel.getPattern());
+
+    nextChannelNumber++;
+    if (nextChannelNumber == 9) {
+      nextChannelNumber = 10;
+    }
+  }
+
+  midiFileWriter.save();
 }
 
 // MIDI input callbacks

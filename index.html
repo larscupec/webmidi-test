@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="styles/arrangement.css">
   <link rel="stylesheet" href="styles/keyboard.css">
   <script src="https://cdn.jsdelivr.net/npm/webmidi@latest/dist/iife/webmidi.iife.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/metayeti/MIDIFileWriter.js@1.0.0/dist/midifilewriter.min.js"></script>
   <script src="scripts/main.js" type="module"></script>
   <link rel="shortcut icon" href="images/icon.svg" type="image/x-icon">
 </head>
@@ -40,10 +41,10 @@
   <main>
     <section id="channel-rack">
       <div id="channel-rack-header">
-        <div id="export-btn">
+        <a id="export-btn">
           <img src="images/export.svg" height="18">
           <p>Export</p>
-        </div>
+        </a>
         <p id="song-time">00:00:00</p>
       </div>
     </section>

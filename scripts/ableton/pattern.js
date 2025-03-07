@@ -6,8 +6,8 @@ export class Pattern {
   #highestOctave = 0;
 
   constructor() {
-    for (let i = 0; i < Timing.calcTotalStepCount(); i++) {
-      this.#steps.set(i + 1, []);
+    for (let i = 1; i <= Timing.calcTotalStepCount(); i++) {
+      this.#steps.set(i, []);
     }
   }
 

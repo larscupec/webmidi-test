@@ -8,4 +8,8 @@ export class SynthBass extends SoundfontInstrument {
   clone() {
     return new SynthBass(this._audioContext);
   }
+
+  getMIDINumber() {
+    return 38;
+  }
 }

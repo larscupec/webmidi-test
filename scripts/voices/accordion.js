@@ -8,4 +8,8 @@ export class Accordion extends SoundfontInstrument {
   clone() {
     return new Accordion(this._audioContext);
   }
+
+  getMIDINumber() {
+    return 21;
+  }
 }

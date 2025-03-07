@@ -5,62 +5,43 @@ export class TR808 extends Drum {
     super("TR-808", audioContext, "TR-808");
   }
 
-  playNote(pitch, velocity, durationMs, volume) {
-    let sample;
-
-    switch (pitch) {
-      case "C4":
-        sample = "kick/bd5075";
-        break;
-      case "C#4":
-        sample = "rimshot";
-        break;
-      case "D4":
-        sample = "snare";
-        break;
-      case "D#4":
-        sample = "clap";
-        break;
-      case "F#4":
-        sample = "hihat-close";
-        break;
-      case "A4":
-        sample = "tom-low";
-        break;
-      case "A#4":
-        sample = "hihat-open";
-        break;
-      case "C5":
-        sample = "mid-tom";
-        break;
-      case "C#5":
-        sample = "cymbal";
-        break;
-      case "D5":
-        sample = "tom-hi";
-        break;
-      case "G#5":
-        sample = "cowbell";
-        break;
-      case "D6":
-        sample = "conga-mid";
-        break;
-      case "D#6":
-        sample = "conga-hi";
-        break;
-      case "E6":
-        sample = "conga-low";
-        break;
-      case "A#6":
-        sample = "maraca";
-        break;
-      case "D#7":
-        sample = "clave";
-        break;
-      default: return;
+  _getSample(sample) {
+    switch (sample) {
+      case "kick":
+        return "kick/bd5075";
+      case "side-stick":
+        return "rimshot";
+      case "ac-snare":
+        return "snare";
+      case "clap":
+        return "clap";
+      case "closed-hihat":
+        return "hihat-close";
+      case "low-tom":
+        return "tom-low";
+      case "open-hihat":
+        return "hihat-open";
+      case "mid-tom":
+        return "mid-tom";
+      case "crash1":
+        return "cymbal";
+      case "high-tom":
+        return "tom-hi";
+      case "cowbell":
+        return "cowbell";
+      case "mute-hi-conga":
+        return "conga-mid";
+      case "open-hi-conga":
+        return "conga-hi";
+      case "low-conga":
+        return "conga-low";
+      case "maracas":
+        return "maraca";
+      case "claves":
+        return "clave";
+      default:
+        return null;
     }
-
-    super.playNote(sample, velocity, durationMs, volume);
   }
 
   clone() {

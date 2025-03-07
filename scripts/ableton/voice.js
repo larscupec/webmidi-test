@@ -7,13 +7,15 @@ export class Voice {
     this._audioContext = audioContext;
   }
 
-  playNote(note, volume) { }
+  playNote(pitch, velocity, durationMs, volume) { }
   
   stopNote(noteNumber) { }
 
   getName() {
     return this.#name;
   }
+
+  getMIDINumber() { }
 
   // Voices have a clone function so that there can be two instances of them.
   // This is because one needs to play notes from the virtual keyboard/MIDI device and

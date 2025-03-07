@@ -8,4 +8,8 @@ export class ElectricBass extends SoundfontInstrument {
   clone() {
     return new ElectricBass(this._audioContext);
   }
+
+  getMIDINumber() {
+    return 33;
+  }
 }

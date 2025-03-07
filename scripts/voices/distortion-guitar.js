@@ -8,4 +8,8 @@ export class DistortionGuitar extends SoundfontInstrument {
   clone() {
     return new DistortionGuitar(this._audioContext);
   }
+
+  getMIDINumber() {
+    return 30;
+  }
 }

@@ -8,4 +8,8 @@ export class OverdrivenGuitar extends SoundfontInstrument {
   clone() {
     return new OverdrivenGuitar(this._audioContext);
   }
+
+  getMIDINumber() {
+    return 29;
+  }
 }

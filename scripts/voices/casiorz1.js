@@ -5,47 +5,33 @@ export class CasioRZ1 extends Drum {
     super("Casio-RZ1", audioContext, "Casio-RZ1");
   }
 
-  playNote(pitch, velocity, durationMs, volume) {
-    let sample;
-
-    switch (pitch) {
-      case "C4":
-        sample = "kick";
-        break;
-      case "D4":
-        sample = "snare";
-        break;
-      case "D#4":
-        sample = "clap";
-        break;
-      case "F#4":
-        sample = "hihat-closed";
-        break;
-      case "A4":
-        sample = "tom-1";
-        break;
-      case "A#4":
-        sample = "hihat-open";
-        break;
-      case "C5":
-        sample = "tom-2";
-        break;
-      case "C#5":
-        sample = "crash";
-        break;
-      case "D5":
-        sample = "tom-3";
-        break;
-      case "G#5":
-        sample = "cowbell";
-        break;
-      case "D#7":
-        sample = "clave";
-        break;
-      default: return;
+  _getSample(sample) {
+    switch (sample) {
+      case "kick":
+        return "kick";
+      case "ac-snare":
+        return "snare";
+      case "clap":
+        return "clap";
+      case "closed-hihat":
+        return "hihat-closed";
+      case "low-tom":
+        return "tom-1";
+      case "low-mid-tom":
+        return "tom-2";
+      case "high-tom":
+        return "tom-3";
+      case "open-hihat":
+        return "hihat-open";
+      case "crash1":
+        return "crash";
+      case "cowbell":
+        return "cowbell";
+      case "claves":
+        return "clave";
+      default:
+        return null;
     }
-
-    super.playNote(sample, velocity, durationMs, volume);
   }
 
   clone() {

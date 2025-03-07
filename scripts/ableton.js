@@ -52,3 +52,5 @@ notePitchClassValues.set("G#", 9);
 notePitchClassValues.set("A", 10);
 notePitchClassValues.set("A#", 11);
 notePitchClassValues.set("B", 12);
+
+export { MidiFileWriter } from "./ableton/midi-file-writer.js";
