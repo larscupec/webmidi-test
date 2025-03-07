@@ -1,6 +1,6 @@
 export class Metronome {
-  #beatClick = new Audio("./sounds/rim_shot.wav");
-  #firstBeatClick = new Audio("./sounds/claves.wav");
+  #beatClick = new Audio("./sounds/rs.ogg");
+  #firstBeatClick = new Audio("./sounds/cl.ogg");
 
   playBeatClick() {
     this.#beatClick.play();
