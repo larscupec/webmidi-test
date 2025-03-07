@@ -162,6 +162,8 @@ WebMidi
   .catch(err => alert(err));
 
 function onEnabled() {
+  WebMidi.octaveOffset = 1;
+
   let inputSelect = document.getElementById("input-select");
 
   WebMidi.inputs.forEach(input => {
@@ -765,7 +767,7 @@ function drawNote(channel, note, startStep) {
   let patternCanvasWidth = patternCanvasBoundingRect.right - patternCanvasBoundingRect.left;
   let patternCanvasHeight = patternCanvasBoundingRect.bottom - patternCanvasBoundingRect.top;
 
-  let songPerc = (startStep) / Timing.calcTotalStepCount();
+  let songPerc = startStep / Timing.calcTotalStepCount();
   let songDurationMs = Timing.calcSongDurationMs();
   let noteLengthPerc = note.getDurationMs() / songDurationMs;
 

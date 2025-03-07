@@ -17,142 +17,142 @@ export class Drum extends Voice {
     let sample;
 
     switch (pitch) {
-      case "C2":
+      case "C3":
         sample = this._getSample("kick");
         break;
-      case "C#2":
+      case "C#3":
         sample = this._getSample("side-stick");
         break;
-      case "D2":
+      case "D3":
         sample = this._getSample("ac-snare");
         break;
-      case "D#2":
+      case "D#3":
         sample = this._getSample("clap");
         break;
-      case "E2":
+      case "E3":
         sample = this._getSample("el-snare");
         break;
-      case "F2":
+      case "F3":
         sample = this._getSample("low-floor-tom");
         break;
-      case "F#2":
+      case "F#3":
         sample = this._getSample("closed-hihat");
         break;
-      case "G2":
+      case "G3":
         sample = this._getSample("high-floor-tom");
         break;
-      case "G#2":
+      case "G#3":
         sample = this._getSample("pedal-hihat");
         break;
-      case "A2":
+      case "A3":
         sample = this._getSample("low-tom");
         break;
-      case "A#2":
+      case "A#3":
         sample = this._getSample("open-hihat");
         break;
-      case "B2":
+      case "B3":
         sample = this._getSample("lowmid-tom");
         break;
-      case "C3":
+      case "C4":
         sample = this._getSample("himid-tom");
         break;
-      case "C#3":
+      case "C#4":
         sample = this._getSample("crash1");
         break;
-      case "D3":
+      case "D4":
         sample = this._getSample("high-tom");
         break;
-      case "D#3":
+      case "D#4":
         sample = this._getSample("ride1");
         break;
-      case "E3":
+      case "E4":
         sample = this._getSample("china");
         break;
-      case "F3":
+      case "F4":
         sample = this._getSample("ride-bell");
         break;
-      case "F#3":
+      case "F#4":
         sample = this._getSample("tambourine");
         break;
-      case "G3":
+      case "G4":
         sample = this._getSample("splash");
         break;
-      case "G#3":
+      case "G#4":
         sample = this._getSample("cowbell");
         break;
-      case "A3":
+      case "A4":
         sample = this._getSample("crash2");
         break;
-      case "A#3":
+      case "A#4":
         sample = this._getSample("vibraslap");
         break;
-      case "B3":
+      case "B4":
         sample = this._getSample("ride2");
         break;
-      case "C4":
+      case "C5":
         sample = this._getSample("hi-bongo");
         break;
-      case "C#4":
+      case "C#5":
         sample = this._getSample("low-bongo");
         break;
-      case "D4":
+      case "D5":
         sample = this._getSample("mute-hi-conga");
         break;
-      case "D#4":
+      case "D#5":
         sample = this._getSample("open-hi-conga");
         break;
-      case "E4":
+      case "E5":
         sample = this._getSample("low-conga");
         break;
-      case "F4":
+      case "F5":
         sample = this._getSample("high-timbale");
         break;
-      case "F#4":
+      case "F#5":
         sample = this._getSample("low-timbale");
         break;
-      case "G4":
+      case "G5":
         sample = this._getSample("high-agogo");
         break;
-      case "G#4":
+      case "G#5":
         sample = this._getSample("low-agogo");
         break;
-      case "A4":
+      case "A5":
         sample = this._getSample("cabasa");
         break;
-      case "A#4":
+      case "A#5":
         sample = this._getSample("maracas");
         break;
-      case "B4":
+      case "B5":
         sample = this._getSample("short-whistle");
         break;
-      case "C5":
+      case "C6":
         sample = this._getSample("long-whistle");
         break;
-      case "C#5":
+      case "C#6":
         sample = this._getSample("short-guiro");
         break;
-      case "D5":
+      case "D6":
         sample = this._getSample("long-guiro");
         break;
-      case "D#5":
+      case "D#6":
         sample = this._getSample("claves");
         break;
-      case "E5":
+      case "E6":
         sample = this._getSample("hi-wood-block");
         break;
-      case "F5":
+      case "F6":
         sample = this._getSample("low-wood-block");
         break;
-      case "F#5":
+      case "F#6":
         sample = this._getSample("mute-cuica");
         break;
-      case "G5":
+      case "G6":
         sample = this._getSample("open-cuica");
         break;
-      case "G#5":
+      case "G#6":
         sample = this._getSample("mute-triangle");
         break;
-      case "A5":
+      case "A6":
         sample = this._getSample("open-triangle");
         break;
       default: return;

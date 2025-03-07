@@ -10,7 +10,7 @@ export class Player {
   #isRecording = false;
 
   #currentSongTimMs = 0;
-  #lastStep = 0;
+  #lastStep = -1;
 
   #channelRack;
 
@@ -22,12 +22,9 @@ export class Player {
     this.#isSongPlaying = true;
 
     if (this.getIsArmedForRecording()) {
-      this.#metronome.playFirstBeatClick();
+      let countdown = Timing.getTimeSignature().getUpperNumeral() - 1;
 
-      this.#songTimer = setTimeout(
-        () => this.#playCountdown(2, updateUICallback),
-        Timing.calcBeatDurationMs()
-      );
+      this.#playCountdown(countdown, updateUICallback);
 
       return;
     }
@@ -54,13 +51,17 @@ export class Player {
     this.#isSongPlaying = false;
     this.#isRecording = false;
     this.#currentSongTimMs = 0;
-    this.#lastStep = 0;
+    this.#lastStep = -1;
   }
 
-  #playCountdown(beat, updateUICallback) {
-    this.#metronome.playBeatClick();
+  #playCountdown(countdown, updateUICallback) {
+    if (countdown == Timing.getTimeSignature().getUpperNumeral() - 1) {
+      this.#metronome.playFirstBeatClick();
+    } else {
+      this.#metronome.playBeatClick();
+    }
 
-    if (beat === Timing.getTimeSignature().getUpperNumeral()) {
+    if (countdown == 0) {
       this.#songTimer = setTimeout(
         () => this.#startSong(updateUICallback),
         Timing.calcBeatDurationMs()
@@ -72,7 +73,7 @@ export class Player {
     }
 
     this.#songTimer = setTimeout(
-      () => this.#playCountdown(beat + 1, updateUICallback),
+      () => this.#playCountdown(countdown - 1, updateUICallback),
       Timing.calcBeatDurationMs()
     );
   }
@@ -96,10 +97,10 @@ export class Player {
 
       // Play metronome clicks
 
-      if (currentStep % (16 / Timing.getTimeSignature().getLowerNumeral()) == 1 &&
-        this.#isMetronomeOn && currentStep != Timing.calcTotalStepCount()) {
+      if ((currentStep + 1) % (16 / Timing.getTimeSignature().getLowerNumeral()) == 1 &&
+        this.#isMetronomeOn && currentStep != Timing.calcTotalStepCount() - 1) {
           
-        if (currentStep % Timing.calcStepCountPerBar() == 1) {
+        if ((currentStep + 1) % Timing.calcStepCountPerBar() == 1) {
           this.#metronome.playFirstBeatClick();
         } else {
           this.#metronome.playBeatClick();

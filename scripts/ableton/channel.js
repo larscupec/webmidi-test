@@ -43,6 +43,9 @@ export class Channel {
     }
 
     let startStep = Timing.quantizeTimeToStep(noteStart.startTime, "loose");
+    if (startStep >= Timing.calcTotalStepCount()) {
+      startStep = 0;
+    }
 
     if (durationMs < 0) {
       durationMs = Timing.calcStepDurationMs();
