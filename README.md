@@ -6,5 +6,6 @@ a 16-step sequencer for making beats online
 
 ## Dependencies
 
- - WEBMIDI.js (https://webmidijs.org)
- - smplr (https://github.com/danigb/smplr)
+- WEBMIDI.js (https://webmidijs.org)
+- smplr (https://github.com/danigb/smplr)
+- MIDIFileWriter.js (https://github.com/metayeti/MIDIFileWriter.js)
