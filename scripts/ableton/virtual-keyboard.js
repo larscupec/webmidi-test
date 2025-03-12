@@ -79,6 +79,42 @@ export class VirtualKeyboard extends MIDIDevice {
       case "i":
         event.note.identifier = "C5";
         break;
+      case "y":
+        event.note.identifier = "C3";
+        break;
+      case "s":
+        event.note.identifier = "C#3";
+        break;
+      case "x":
+        event.note.identifier = "D3";
+        break;
+      case "d":
+        event.note.identifier = "D#3";
+        break;
+      case "c":
+        event.note.identifier = "E3";
+        break;
+      case "v":
+        event.note.identifier = "F3";
+        break;
+      case "g":
+        event.note.identifier = "F#3";
+        break;
+      case "b":
+        event.note.identifier = "G3";
+        break;
+      case "h":
+        event.note.identifier = "G#3";
+        break;
+      case "n":
+        event.note.identifier = "A3";
+        break;
+      case "j":
+        event.note.identifier = "A#3";
+        break;
+      case "m":
+        event.note.identifier = "B3";
+        break;
     }
 
     this.#noteOnCallback?.(event);
@@ -139,6 +175,54 @@ export class VirtualKeyboard extends MIDIDevice {
       case "i":
         event.note.identifier = "C5";
         event.note.number = 72;
+        break;
+      case "y":
+        event.note.identifier = "C3";
+        event.note.number = 48;
+        break;
+      case "s":
+        event.note.identifier = "C#3";
+        event.note.number = 49;
+        break;
+      case "x":
+        event.note.identifier = "D3";
+        event.note.number = 50;
+        break;
+      case "d":
+        event.note.identifier = "D#3";
+        event.note.number = 51;
+        break;
+      case "c":
+        event.note.identifier = "E3";
+        event.note.number = 52;
+        break;
+      case "v":
+        event.note.identifier = "F3";
+        event.note.number = 53;
+        break;
+      case "g":
+        event.note.identifier = "F#3";
+        event.note.number = 54;
+        break;
+      case "b":
+        event.note.identifier = "G3";
+        event.note.number = 55;
+        break;
+      case "h":
+        event.note.identifier = "G#3";
+        event.note.number = 56;
+        break;
+      case "n":
+        event.note.identifier = "A3";
+        event.note.number = 57;
+        break;
+      case "j":
+        event.note.identifier = "A#3";
+        event.note.number = 58;
+        break;
+      case "m":
+        event.note.identifier = "B3";
+        event.note.number = 59;
         break;
     }
 
