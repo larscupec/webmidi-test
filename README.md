@@ -2,6 +2,8 @@
 
 a 16-step sequencer for making beats online
 
+![Screenshot](images/screenshot.png)
+
 ## Usage
 
 ### Initialization
@@ -13,11 +15,11 @@ When the button changes to `Sound ✔` you can start playing.
 
 If you want to use a MIDI device with the app plug your device in and refresh the page. It should be listed in the `Input` dropdown in the top right.
 
-### Virtual Keyboard
+### Virtual keyboard
 
 If you don't have a MIDI device you can use your keyboard to play notes just as you would with a MIDI keyboard.
 
-To use the virtual keyboard select it form the `Input` dropdown in the top right.
+To use the virtual keyboard select "Keyboard" form the `Input` dropdown in the top right.
 
 ![Keyboard layout](images/keyboard_layout.png)
 
