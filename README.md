@@ -23,6 +23,14 @@ To use the virtual keyboard select "Keyboard" form the `Input` dropdown in the t
 
 ![Keyboard layout](images/keyboard_layout.png)
 
+### Keyboard shortcuts
+
+- `Space` - Play/Stop
+- `Pause/Break` - Play/Pause
+- `Shift+R` - Arm for recording
+- `Ctrl+Z` - Undo
+- `Ctrl+Y` - Redo
+
 ## Recording
 
 You can record MIDI notes by clicking the record icon `⏺` at the top. A red circle indicates that it is 
