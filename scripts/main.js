@@ -137,10 +137,11 @@ window.stopSong = () => {
 window.toggleRecording = () => {
   let isArmed = Ableton.player.getIsArmedForRecording();
   Ableton.player.setIsArmedForRecording(!isArmed);
+  isArmed = Ableton.player.getIsArmedForRecording();
 
   let recordButton = document.getElementById("record-btn");
 
-  if (Ableton.player.getIsArmedForRecording()) {
+  if (isArmed) {
     recordButton.style.filter = RECORD_BUTTON_RED;
     if (Ableton.player.getIsSongPlaying()) {
       recordButtonBlinkTimer = setTimeout(() => changeRecordButtonColor(true));
@@ -149,6 +150,8 @@ window.toggleRecording = () => {
     recordButton.style.filter = BLACK;
     clearTimeout(recordButtonBlinkTimer);
   }
+
+  setIsChannelArmed(Ableton.channelRack.getChannelIndex(Ableton.channelRack.getCurrentChannel()), isArmed);
 };
 window.toggleKeyboardVisibility = toggleKeyboardVisibility;
 window.toggleMetronome = toggleMetronome;
@@ -287,7 +290,6 @@ function drawChannelRack() {
     soloButton.addEventListener("click", (event) => toggleSoloChannel(event, i));
     volumeFader.addEventListener("input", (event) => setChannelVolume(event, i));
     volumeFader.addEventListener("click", (event) => event.stopPropagation());
-    recordButton.addEventListener("click", (event) => toggleIsChannelArmed(event, i));
   }
 
   selectChannel(Ableton.channelRack.getChannelIndex(Ableton.channelRack.getCurrentChannel()));
@@ -471,23 +473,6 @@ function toggleSoloChannel(event, channelIndex) {
   }
 }
 
-function toggleIsChannelArmed(event, channelIndex) {
-  let isChannelArmed = Ableton.channelRack.getChannelAt(channelIndex).getIsArmedForRecording();
-  Ableton.channelRack.getChannelAt(channelIndex).setIsArmedForRecording(!isChannelArmed);
-
-  event.stopPropagation();
-
-  if (Ableton.channelRack.getChannelAt(channelIndex).getIsArmedForRecording()) {
-    event.target.style.backgroundColor = BUTTON_ACTIVE_COLOR;
-    event.target.style.borderColor = BUTTON_ACTIVE_BORDER_COLOR;
-    event.target.style.color = "red";
-  } else {
-    event.target.style.backgroundColor = BUTTON_COLOR;
-    event.target.style.borderColor = BUTTON_BORDER_COLOR;
-    event.target.style.color = "black";
-  }
-}
-
 function setChannelVolume(event, channelIndex) {
   let currentChannel = Ableton.channelRack.getChannelAt(channelIndex);
   currentChannel.setVolume(event.target.value);
@@ -499,15 +484,19 @@ function selectChannel(channelIndex) {
 
   let currentChannel = document.getElementById(`channel-${currentChannelIndex}`);
   let currentChannelName = document.getElementById(`channel-${currentChannelIndex}-name`);
+  let currentChannelRecordBtn = document.getElementById(`channel-${currentChannelIndex}-record`);
 
   currentChannel.style.backgroundColor = "rgb(190, 190, 190)";
   currentChannelName.style.textDecoration = "none";
+  setIsChannelArmed(currentChannelIndex, false);
 
   currentChannel = document.getElementById(`channel-${channelIndex}`);
   currentChannelName = document.getElementById(`channel-${channelIndex}-name`);
+  currentChannelRecordBtn = document.getElementById(`channel-${channelIndex}-record`);
 
   currentChannel.style.backgroundColor = "rgb(180, 180, 180)";
   currentChannelName.style.textDecoration = "underline";
+  setIsChannelArmed(channelIndex, Ableton.player.getIsArmedForRecording());
 
   Ableton.channelRack.setCurrentChannelByIndex(channelIndex);
 }
@@ -617,7 +606,7 @@ function keyDown(pitch, velocity, event = null) {
   );
   currentChannelVoice.playNote(pitch, velocity, 0, currentChannel.getVolume());
 
-  if (Ableton.player.getIsRecording() && currentChannel.getIsArmedForRecording()) {
+  if (Ableton.player.getIsRecording()) {
     currentChannel.recordNoteStart(pitch, velocity, Ableton.player.getCurrentSongTimeMs());
   }
 }
@@ -641,13 +630,13 @@ function keyUp(pitch, noteNumber, event = null) {
   let pattern = currentChannel.getPattern();
   let player = Ableton.player;
 
-  if (player.getIsRecording() && currentChannel.getIsArmedForRecording()) {
+  if (player.getIsRecording()) {
     let noteOctave = pitch.replace(/[^0-9]/g, "");
     
     if (noteOctave >= pattern.getLowestOctave() && noteOctave <= pattern.getHighestOctave()) {
-      currentChannel.recordNoteEnd(pitch, Ableton.player.getCurrentSongTimeMs(), drawNote);
+      currentChannel.recordNoteEnd(pitch, player.getCurrentSongTimeMs(), drawNote);
     } else {
-      currentChannel.recordNoteEnd(pitch, Ableton.player.getCurrentSongTimeMs(), null);
+      currentChannel.recordNoteEnd(pitch, player.getCurrentSongTimeMs(), null);
       redrawPattern(Ableton.channelRack.getChannelIndex(currentChannel));
     }
   }
@@ -839,5 +828,19 @@ function shrinkChannelNames() {
     } else {
       channelName.innerText = "Track " + channelNumber;
     }
+  }
+}
+
+function setIsChannelArmed(channelIndex, isArmed) {
+  let channelRecordBtn = document.getElementById(`channel-${channelIndex}-record`);
+
+  if (isArmed) {
+    channelRecordBtn.style.backgroundColor = BUTTON_ACTIVE_COLOR;
+    channelRecordBtn.style.borderColor = BUTTON_ACTIVE_BORDER_COLOR;
+    channelRecordBtn.style.color = "red";
+  } else {
+    channelRecordBtn.style.backgroundColor = BUTTON_COLOR;
+    channelRecordBtn.style.borderColor = BUTTON_BORDER_COLOR;
+    channelRecordBtn.style.color = "black";
   }
 }

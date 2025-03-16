@@ -40,9 +40,9 @@ To record a phrase or a pattern on a chennel first select the channel you want t
 channel rack or by clicking it's corresponding track in the arrangement. The selected channel will be dimmed in the
 channel rack and it's name underlined.
 
-After selecting the channel you wish to record click the `R` button on the channel to arm it for recording as well.
+After selecting the channel you will see that the `R` button on the channel turned red which means it is armed for recording.
 
-Now you are ready to record. Press play and you will hear a countdown of 4 clicks before the loop starts and you
+You are now ready to record. Press play and you will hear a countdown of 4 clicks before the loop starts and you
 can start playing.
 
 ### Metronome

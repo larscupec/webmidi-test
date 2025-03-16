@@ -10,7 +10,6 @@ export class Channel {
   #volume = 100;
   #isMuted = false;
   #isSoloed = false;
-  #isArmedForRecording = false;
   #preMuteVolume = this.#volume;
 
   #pattern = new Pattern();
@@ -84,10 +83,6 @@ export class Channel {
     return this.#pattern;
   }
 
-  getIsArmedForRecording() {
-    return this.#isArmedForRecording;
-  }
-
   setVoice(voice) {
     this.#voice = voice;
   }
@@ -115,9 +110,5 @@ export class Channel {
     } else {
       this.#volume = volume;
     }
-  }
-
-  setIsArmedForRecording(isArmedForRecording) {
-    this.#isArmedForRecording = isArmedForRecording;
   }
 }
