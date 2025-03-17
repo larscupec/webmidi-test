@@ -43,8 +43,4 @@ export class TR808 extends Drum {
         return null;
     }
   }
-
-  clone() {
-    return new TR808(this._audioContext);
-  }
 }

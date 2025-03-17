@@ -5,10 +5,6 @@ export class AcousticBass extends SoundfontInstrument {
     super("Acoustic Bass", audioContext, "acoustic_bass");
   }
 
-  clone() {
-    return new AcousticBass(this._audioContext);
-  }
-
   getMIDINumber() {
     return 33;
   }

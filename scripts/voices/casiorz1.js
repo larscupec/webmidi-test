@@ -33,8 +33,4 @@ export class CasioRZ1 extends Drum {
         return null;
     }
   }
-
-  clone() {
-    return new CasioRZ1(this._audioContext);
-  }
 }

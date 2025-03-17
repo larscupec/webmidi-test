@@ -28,10 +28,10 @@ export const voices = [
   Voices.casioRZ1,
 ];
 
-const channel1 = new Channel("Track 1", Voices.tr808.clone());
-const channel2 = new Channel("Track 2", Voices.electricBass.clone());
-const channel3 = new Channel("Track 3", Voices.overdrivenGuitar.clone());
-const channel4 = new Channel("Track 4", Voices.acousticPiano.clone());
+const channel1 = new Channel("Track 1", Voices.tr808);
+const channel2 = new Channel("Track 2", Voices.electricBass);
+const channel3 = new Channel("Track 3", Voices.overdrivenGuitar);
+const channel4 = new Channel("Track 4", Voices.acousticPiano);
 
 channelRack.add(channel1);
 channelRack.add(channel2);

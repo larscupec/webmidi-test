@@ -5,10 +5,6 @@ export class OverdrivenGuitar extends SoundfontInstrument {
     super("Overdriven Guitar", audioContext, "overdriven_guitar");
   }
 
-  clone() {
-    return new OverdrivenGuitar(this._audioContext);
-  }
-
   getMIDINumber() {
     return 29;
   }

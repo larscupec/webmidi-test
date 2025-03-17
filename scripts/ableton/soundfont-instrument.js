@@ -26,6 +26,4 @@ export class SoundfontInstrument extends Voice {
   stopNote(noteNumber) {
     this.#patch.stop(noteNumber);
   }
-
-  clone() { } 
 }

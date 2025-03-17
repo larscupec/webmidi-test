@@ -5,10 +5,6 @@ export class DistortionGuitar extends SoundfontInstrument {
     super("Distortion Guitar", audioContext, "distortion_guitar");
   }
 
-  clone() {
-    return new DistortionGuitar(this._audioContext);
-  }
-
   getMIDINumber() {
     return 30;
   }

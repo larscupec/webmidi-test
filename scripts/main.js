@@ -416,7 +416,8 @@ function drawKeyboard() {
 
 function setChannelVoice(event, channelIndex) {
   Ableton.channelRack.getChannelAt(channelIndex).setVoice(
-    Ableton.voices.find(voice => voice.getName() === event.target.value).clone());
+    Ableton.voices.find(voice => voice.getName() === event.target.value)
+  );
 }
 
 function toggleMuteChannel(event, channelIndex) {
@@ -601,10 +602,7 @@ function keyDown(pitch, velocity, event = null) {
 
   let currentChannel = Ableton.channelRack.getCurrentChannel();
 
-  let currentChannelVoice = Ableton.voices.find(
-    (voice) => voice.getName() === currentChannel.getVoice().getName()
-  );
-  currentChannelVoice.playNote(pitch, velocity, 0, currentChannel.getVolume());
+  currentChannel.getVoice().playNote(pitch, velocity, 0, currentChannel.getVolume());
 
   if (Ableton.player.getIsRecording()) {
     currentChannel.recordNoteStart(pitch, velocity, Ableton.player.getCurrentSongTimeMs());
@@ -622,10 +620,7 @@ function keyUp(pitch, noteNumber, event = null) {
 
   let currentChannel = Ableton.channelRack.getCurrentChannel();
 
-  let currentChannelVoice = Ableton.voices.find(
-    (voice) => voice.getName() === currentChannel.getVoice().getName()
-  );
-  currentChannelVoice.stopNote(noteNumber);
+  currentChannel.getVoice().stopNote(noteNumber);
 
   let pattern = currentChannel.getPattern();
   let player = Ableton.player;

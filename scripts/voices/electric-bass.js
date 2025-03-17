@@ -5,10 +5,6 @@ export class ElectricBass extends SoundfontInstrument {
     super("Electric Bass", audioContext, "electric_bass_finger");
   }
 
-  clone() {
-    return new ElectricBass(this._audioContext);
-  }
-
   getMIDINumber() {
     return 33;
   }

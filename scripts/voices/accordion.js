@@ -5,10 +5,6 @@ export class Accordion extends SoundfontInstrument {
     super("Accordion", audioContext, "accordion");
   }
 
-  clone() {
-    return new Accordion(this._audioContext);
-  }
-
   getMIDINumber() {
     return 21;
   }

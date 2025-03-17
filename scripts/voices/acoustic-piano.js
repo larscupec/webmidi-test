@@ -5,10 +5,6 @@ export class AcousticPiano extends SoundfontInstrument {
     super("Acoustic Piano", audioContext, "acoustic_grand_piano");
   }
 
-  clone() {
-    return new AcousticPiano(this._audioContext);
-  }
-
   getMIDINumber() {
     return 0;
   }

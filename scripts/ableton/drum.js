@@ -175,8 +175,6 @@ export class Drum extends Voice {
     this.#drumMachine.stop({ note: noteNumber });
   }
 
-  clone() {}
-
   getMIDIName() {
     return 1;
   }

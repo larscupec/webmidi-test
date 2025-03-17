@@ -5,10 +5,6 @@ export class ElectricPiano extends SoundfontInstrument {
     super("Electric Piano", audioContext, "electric_piano_1");
   }
 
-  clone() {
-    return new ElectricPiano(this._audioContext);
-  }
-
   getMIDINumber() {
     return 4;
   }

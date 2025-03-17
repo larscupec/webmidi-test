@@ -5,10 +5,6 @@ export class SynthBass extends SoundfontInstrument {
     super("Synth Bass", audioContext, "synth_bass_1");
   }
 
-  clone() {
-    return new SynthBass(this._audioContext);
-  }
-
   getMIDINumber() {
     return 38;
   }
