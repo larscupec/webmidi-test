@@ -52,6 +52,11 @@ export class Channel {
 
     let note = new Note(pitch, noteStart.velocity, durationMs);
 
+    let startStepTimeMs = Timing.convStepToTimeMs(startStep)
+    if (startStepTimeMs >= currentSongTimeMs) {
+      note.dontPlay = true;
+    }
+
     this.#pattern.add(note, startStep);
 
     NoteHistory.add({ channel: this, note: note, startStep: startStep });

@@ -4,11 +4,13 @@ export class Note {
   #pitch;
   #durationMs;
   #velocity;
+  dontPlay;
 
-  constructor(pitch, velocity, durationMs) {
+  constructor(pitch, velocity, durationMs, dontPlay = false) {
     this.#pitch = pitch;
     this.#velocity = velocity;
     this.#durationMs = durationMs;
+    this.dontPlay = dontPlay;
   }
 
   getPitch() {

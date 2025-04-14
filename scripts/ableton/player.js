@@ -115,7 +115,8 @@ export class Player {
         let notes = pattern.getNotes(currentStep);
 
         notes?.forEach(note => {
-          channel.play(note);
+          if (!note.dontPlay) channel.play(note);
+          else note.dontPlay = false;
         });
       }
     }

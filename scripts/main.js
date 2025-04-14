@@ -19,6 +19,11 @@ let isKeyboardVisible = true;
 let playButtonBlinkTimer = null;
 let recordButtonBlinkTimer = null;
 
+// Loop time display options
+
+let timeDisplayOptions = ["time", "step", "beat"];
+let currentTimeDisplayOptionIdx = 0;
+
 // Colors
 
 const RECORD_BUTTON_RED = "brightness(0) saturate(100%) invert(20%) sepia(71%) saturate(5667%) hue-rotate(346deg) brightness(101%) contrast(86%)";
@@ -28,6 +33,7 @@ const BUTTON_BORDER_COLOR = "rgb(143, 143, 157)";
 const BUTTON_ACTIVE_COLOR = "rgb(177, 177, 185)";
 const BUTTON_ACTIVE_BORDER_COLOR = "rgb(72, 72, 81)";
 const BLACK = "brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(7500%) hue-rotate(327deg) brightness(96%) contrast(104%)";
+
 // Initialize window function delegates
 
 window.onresize = () => {
@@ -74,6 +80,13 @@ window.onload = () => {
   document.getElementById("export-btn").addEventListener("click", (event) => {
     exportMIDI();
   });
+  document.getElementById("song-time").addEventListener("click", (event) => {
+    currentTimeDisplayOptionIdx++;
+    if (currentTimeDisplayOptionIdx == timeDisplayOptions.length) {
+      currentTimeDisplayOptionIdx = 0;
+    }
+    updateSongTime();
+  });
 };
 window.playPauseSong = () => {
   if (Ableton.player.getIsSongPlaying()) {
@@ -92,9 +105,7 @@ window.playPauseSong = () => {
     }
   } else {
     Ableton.player.playSong(() => {
-      document.getElementById("song-time").innerText =
-        msToMinSecMs(Ableton.player.getCurrentSongTimeMs());
-
+      updateSongTime();
       updatePlayheadPosition();
     });
 
@@ -120,8 +131,7 @@ window.stopSong = () => {
   playButton.src = "images/play.svg";
   playButton.style.filter = BLACK;
 
-  document.getElementById("song-time").innerText =
-    msToMinSecMs(Ableton.player.getCurrentSongTimeMs());
+  updateSongTime();
 
   updatePlayheadPosition();
   clearTimeout(playButtonBlinkTimer);
@@ -838,4 +848,20 @@ function setIsChannelArmed(channelIndex, isArmed) {
     channelRecordBtn.style.borderColor = BUTTON_BORDER_COLOR;
     channelRecordBtn.style.color = "black";
   }
+}
+
+function updateSongTime() {
+  switch (timeDisplayOptions[currentTimeDisplayOptionIdx]) {
+    default: case "time":
+      document.getElementById("song-time").innerText =
+        msToMinSecMs(Ableton.player.getCurrentSongTimeMs());
+      break;
+    case "step":
+      document.getElementById("song-time").innerText =
+        Timing.quantizeTimeToStep(Ableton.player.getCurrentSongTimeMs());
+      break;
+    case "beat":
+      // TODO
+      break;
+  } 
 }
