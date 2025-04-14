@@ -36,26 +36,29 @@ export class Channel {
       return;
     }
 
-    let durationMs = currentSongTimeMs - noteStart.startTime;
-    if (durationMs < 0) {
-      durationMs = Timing.calcSongDurationMs() - noteStart.startTime;
-    }
-
     let startStep = Timing.quantizeTimeToStep(noteStart.startTime, "loose");
     if (startStep >= Timing.calcTotalStepCount()) {
       startStep = 0;
+    }
+
+    let dontPlay = false;
+
+    let startStepTimeMs = Timing.convStepToTimeMs(startStep)
+    if (startStepTimeMs >= currentSongTimeMs) {
+      dontPlay = true;
+    }
+
+    let durationMs = currentSongTimeMs - noteStart.startTime;
+    if (durationMs < 0) {
+      durationMs = Timing.calcSongDurationMs() - noteStart.startTime;
+      dontPlay = false;
     }
 
     if (durationMs < 0) {
       durationMs = Timing.calcStepDurationMs();
     }
 
-    let note = new Note(pitch, noteStart.velocity, durationMs);
-
-    let startStepTimeMs = Timing.convStepToTimeMs(startStep)
-    if (startStepTimeMs >= currentSongTimeMs) {
-      note.dontPlay = true;
-    }
+    let note = new Note(pitch, noteStart.velocity, durationMs, dontPlay);
 
     this.#pattern.add(note, startStep);
 

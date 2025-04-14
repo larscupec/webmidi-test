@@ -9,7 +9,7 @@ export class Player {
   #isArmedForRecording = false;
   #isRecording = false;
 
-  #currentSongTimMs = 0;
+  #currentSongTimeMs = 0;
   #lastStep = -1;
 
   #channelRack;
@@ -33,7 +33,7 @@ export class Player {
   }
 
   #startSong(updateUICallback) {
-    let startTimeMs = Date.now() - this.#currentSongTimMs;
+    let startTimeMs = Date.now() - this.#currentSongTimeMs;
 
     this.#songTimer = setTimeout(() => this.#update(startTimeMs, updateUICallback));
   }
@@ -50,7 +50,7 @@ export class Player {
 
     this.#isSongPlaying = false;
     this.#isRecording = false;
-    this.#currentSongTimMs = 0;
+    this.#currentSongTimeMs = 0;
     this.#lastStep = -1;
   }
 
@@ -81,11 +81,11 @@ export class Player {
   #update(startTimeMs, updateUICallback) {
     const currentTime = Date.now();
 
-    this.#currentSongTimMs = currentTime - startTimeMs;
+    this.#currentSongTimeMs = currentTime - startTimeMs;
 
-    if (this.#currentSongTimMs >= Timing.calcSongDurationMs()) {
+    if (this.#currentSongTimeMs >= Timing.calcSongDurationMs()) {
       startTimeMs = currentTime;
-      this.#currentSongTimMs = this.#currentSongTimMs - Timing.calcSongDurationMs();
+      this.#currentSongTimeMs = this.#currentSongTimeMs - Timing.calcSongDurationMs();
     }
 
     updateUICallback();
@@ -137,11 +137,11 @@ export class Player {
   }
 
   getCurrentSongTimeMs() {
-    return this.#currentSongTimMs;
+    return this.#currentSongTimeMs;
   }
 
   getCurrentStep() {
-    return Timing.quantizeTimeToStep(this.#currentSongTimMs);
+    return Timing.quantizeTimeToStep(this.#currentSongTimeMs);
   }
 
   getIsMetronomeOn() {
