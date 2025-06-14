@@ -21,7 +21,7 @@ let recordButtonBlinkTimer = null;
 
 // Loop time display options
 
-let timeDisplayOptions = ["time", "step", "beat"];
+let timeDisplayOptions = ["time", "step", "bar"];
 let currentTimeDisplayOptionIdx = 0;
 
 // Colors
@@ -860,8 +860,9 @@ function updateSongTime() {
       document.getElementById("song-time").innerText =
         Timing.quantizeTimeToStep(Ableton.player.getCurrentSongTimeMs());
       break;
-    case "beat":
-      // TODO
+    case "bar":
+      let currentStep = Timing.quantizeTimeToStep(Ableton.player.getCurrentSongTimeMs());
+      document.getElementById("song-time").innerText = Math.floor(currentStep / Timing.calcStepCountPerBar()) + 1;
       break;
   } 
 }

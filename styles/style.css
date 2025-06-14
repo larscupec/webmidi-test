@@ -45,10 +45,17 @@ header {
   justify-content: center;
   align-items: center;
   gap: 8px;
-  font-size: 22px;
 
   img {
     filter: brightness(0) saturate(100%) invert(0%) sepia(8%) saturate(7486%) hue-rotate(62deg) brightness(105%) contrast(99%);
+  }
+
+  #play-btn {
+    height: 28px;
+  }
+
+  #stop-btn {
+    height: 29px;
   }
 }
 
