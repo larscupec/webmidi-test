@@ -9,7 +9,7 @@
   text-align: right;
   display: flex;
   justify-content: space-between;
-  padding-bottom: 5px;
+  padding-bottom: 2px;
 }
 
 #export-btn {
