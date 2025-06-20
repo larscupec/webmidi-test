@@ -21,7 +21,7 @@ let recordButtonBlinkTimer = null;
 
 // Loop time display options
 
-let timeDisplayOptions = ["time", "step", "bar"];
+const timeDisplayOptions = ["time", "step", "bar"];
 let currentTimeDisplayOptionIdx = 0;
 
 // Colors
@@ -34,7 +34,7 @@ const BUTTON_ACTIVE_COLOR = "rgb(177, 177, 185)";
 const BUTTON_ACTIVE_BORDER_COLOR = "rgb(72, 72, 81)";
 const BLACK = "brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(7500%) hue-rotate(327deg) brightness(96%) contrast(104%)";
 
-// Initialize window function delegates
+// Set window delegates
 
 window.onresize = () => {
   updatePlayheadPosition();
@@ -201,7 +201,7 @@ function onEnabled() {
 
   selectInputDevice(inputDevices[0].getName());
 
-  inputSelect.addEventListener("change", (event) => changeInputDevice(event));
+  inputSelect.addEventListener("change", (event) => selectInputDevice(event.target.value));
   
   document.addEventListener("keydown", (event) => {
     if (!event.repeat && !event.ctrlKey) {
@@ -533,10 +533,6 @@ function selectInputDevice(deviceName) {
     let noteNumber = e.note.number;
     keyUp(pitch, noteNumber);
   });
-}
-
-function changeInputDevice(event) {
-  selectInputDevice(event.target.value);
 }
 
 function toggleKeyboardVisibility() {
