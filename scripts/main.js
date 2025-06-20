@@ -2,7 +2,6 @@ import { MIDIDevice } from "./ableton/midi-device.js";
 import { VirtualKeyboard } from "./ableton/virtual-keyboard.js";
 import * as Ableton from "./ableton.js";
 import { Timing } from "./ableton/timing.js";
-import { NoteHistory } from "./ableton/note-history.js";
 import { Drum } from "./ableton/drum.js";
 
 // MIDI Input
@@ -632,29 +631,27 @@ function keyUp(pitch, noteNumber, event = null) {
 
 function undoKeyPressed(event) {
   if (event.key === "z" && event.ctrlKey && !event.repeat) {
-    let lastPlayedNote = NoteHistory.undo();
+    let currentChannel = Ableton.channelRack.getCurrentChannel();
+    let pattern = currentChannel.getPattern();
+    let lastPlayedNote = currentChannel.getNoteHistory().undo();
 
     if (!lastPlayedNote) return;
 
-    let pattern = lastPlayedNote.channel.getPattern();
-
     pattern.remove(lastPlayedNote.note, lastPlayedNote.startStep);
-
-    redrawPattern(Ableton.channelRack.getChannelIndex(lastPlayedNote.channel));
+    redrawPattern(Ableton.channelRack.getChannelIndex(currentChannel));
   }
 }
 
 function redoKeyPressed(event) {
   if (event.key === "y" && event.ctrlKey && !event.repeat) {
-    let lastDeletedNote = NoteHistory.redo();
+    let currentChannel = Ableton.channelRack.getCurrentChannel();
+    let pattern = currentChannel.getPattern();
+    let lastDeletedNote = currentChannel.getNoteHistory().redo();
 
     if (!lastDeletedNote) return;
 
-    let pattern = lastDeletedNote.channel.getPattern();
-
     pattern.add(lastDeletedNote.note, lastDeletedNote.startStep);
-
-    drawNote(lastDeletedNote.channel, lastDeletedNote.note, lastDeletedNote.startStep);
+    drawNote(currentChannel, lastDeletedNote.note, lastDeletedNote.startStep);
   }
 }
 

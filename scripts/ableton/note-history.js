@@ -1,12 +1,12 @@
 export class NoteHistory {
-  static #playedNotes = [];
-  static #deletedNotes = [];
+  #playedNotes = [];
+  #deletedNotes = [];
 
-  static add(note) {
+  add(note) {
     this.#playedNotes.push(note);
   }
 
-  static undo() {
+  undo() {
     if (this.#playedNotes.length === 0) {
       return null;
     }
@@ -18,7 +18,7 @@ export class NoteHistory {
     return lastPlayedNote;
   }
 
-  static redo() {
+  redo() {
     if (this.#deletedNotes.length === 0) {
       return null;
     }

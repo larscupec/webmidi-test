@@ -14,6 +14,7 @@ export class Channel {
 
   #pattern = new Pattern();
   #recordBuffer = new RecordBuffer();
+  #noteHistory = new NoteHistory();
 
   constructor(name, voice) {
     this.#name = name;
@@ -62,7 +63,7 @@ export class Channel {
 
     this.#pattern.add(note, startStep);
 
-    NoteHistory.add({ channel: this, note: note, startStep: startStep });
+    this.#noteHistory.add({ note: note, startStep: startStep });
 
     drawCallback?.(this, note, startStep);
   }
@@ -89,6 +90,10 @@ export class Channel {
 
   getPattern() {
     return this.#pattern;
+  }
+
+  getNoteHistory() {
+    return this.#noteHistory;
   }
 
   setVoice(voice) {
