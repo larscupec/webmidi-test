@@ -128,6 +128,10 @@ export class Player {
     return this.#isSongPlaying;
   }
 
+  getIsSongPaused() {
+    return !this.#isSongPlaying && this.#currentSongTimeMs > 0;
+  }
+
   getIsArmedForRecording() {
     return this.#isArmedForRecording;
   }

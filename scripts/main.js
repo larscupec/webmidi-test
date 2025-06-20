@@ -7,19 +7,14 @@ import { Drum } from "./ableton/drum.js";
 
 // MIDI Input
 
-const inputDevices = [];
+let inputDevices = [];
 let currentInputDevice = null;
 
 // On-screen keyboard
 
 let isKeyboardVisible = true;
 
-// Timers
-
-let playButtonBlinkTimer = null;
-let recordButtonBlinkTimer = null;
-
-// Loop time display options
+// Song time display
 
 const timeDisplayOptions = ["time", "step", "bar"];
 let currentTimeDisplayOptionIdx = 0;
@@ -87,17 +82,18 @@ window.onload = () => {
     }
     updateSongTime();
   });
+
+  setTimeout(() => buttonBlink(), 1000);
 };
 window.playPauseSong = () => {
+  let playButton = document.getElementById("play-btn");
+  let recordButton = document.getElementById("record-btn");
+
   if (Ableton.player.getIsSongPlaying()) {
     Ableton.player.pauseSong();
 
-    document.getElementById("play-btn").src = "images/play.svg";
+    playButton.src = "images/play.svg";
 
-    playButtonBlinkTimer = setTimeout(() => changePlayButtonColor(false));
-    clearTimeout(recordButtonBlinkTimer);
-
-    let recordButton = document.getElementById("record-btn");
     if (Ableton.player.getIsArmedForRecording()) {
       recordButton.style.filter = RECORD_BUTTON_RED;
     } else {
@@ -111,33 +107,25 @@ window.playPauseSong = () => {
 
     document.getElementById("playhead").style.visibility = "visible";
 
-    let playButton = document.getElementById("play-btn");
     playButton.src = "images/pause.svg";
     playButton.style.filter = BLACK;
-
-    clearTimeout(playButtonBlinkTimer);
-
-    if (Ableton.player.getIsArmedForRecording()) {
-      recordButtonBlinkTimer = setTimeout(() => changeRecordButtonColor(true));
-    }
   }
 };
 window.stopSong = () => {
+  let playButton = document.getElementById("play-btn");
+  let recordButton = document.getElementById("record-btn");
+
   Ableton.player.stopSong();
 
   document.getElementById("playhead").style.visibility = "hidden";
 
-  let playButton = document.getElementById("play-btn");
   playButton.src = "images/play.svg";
   playButton.style.filter = BLACK;
 
   updateSongTime();
 
   updatePlayheadPosition();
-  clearTimeout(playButtonBlinkTimer);
-  clearTimeout(recordButtonBlinkTimer);
 
-  let recordButton = document.getElementById("record-btn");
   if (Ableton.player.getIsArmedForRecording()) {
     recordButton.style.filter = RECORD_BUTTON_RED;
   } else {
@@ -146,6 +134,7 @@ window.stopSong = () => {
 };
 window.toggleRecording = () => {
   let isArmed = Ableton.player.getIsArmedForRecording();
+
   Ableton.player.setIsArmedForRecording(!isArmed);
   isArmed = Ableton.player.getIsArmedForRecording();
 
@@ -153,12 +142,8 @@ window.toggleRecording = () => {
 
   if (isArmed) {
     recordButton.style.filter = RECORD_BUTTON_RED;
-    if (Ableton.player.getIsSongPlaying()) {
-      recordButtonBlinkTimer = setTimeout(() => changeRecordButtonColor(true));
-    }
   } else {
     recordButton.style.filter = BLACK;
-    clearTimeout(recordButtonBlinkTimer);
   }
 
   setIsChannelArmed(Ableton.channelRack.getChannelIndex(Ableton.channelRack.getCurrentChannel()), isArmed);
@@ -718,22 +703,14 @@ function updatePlayheadPosition() {
   playhead.style.left = `${arrangementWidth * songPerc}px`;
 }
 
-function changePlayButtonColor(isGreen) {
-  if (isGreen) {
-    document.getElementById("play-btn").style.filter = PLAY_BUTTON_GREEN;
-  } else {
-    document.getElementById("play-btn").style.filter = BLACK;
+function buttonBlink(isOn = false) {
+  if (Ableton.player.getIsSongPaused()) {
+    document.getElementById("play-btn").style.filter = isOn ? PLAY_BUTTON_GREEN : BLACK;
   }
-  playButtonBlinkTimer = setTimeout(() => changePlayButtonColor(!isGreen), 1000);
-}
-
-function changeRecordButtonColor(isRed) {
-  if (isRed) {
-    document.getElementById("record-btn").style.filter = RECORD_BUTTON_RED;
-  } else {
-    document.getElementById("record-btn").style.filter = BLACK;
+  if (Ableton.player.getIsSongPlaying() && Ableton.player.getIsRecording()) {
+    document.getElementById("record-btn").style.filter = isOn ? RECORD_BUTTON_RED : BLACK;
   }
-  recordButtonBlinkTimer = setTimeout(() => changeRecordButtonColor(!isRed), 1000);
+  setTimeout(() => buttonBlink(!isOn), 1000);
 }
 
 function drawNote(channel, note, startStep) {
