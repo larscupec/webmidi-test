@@ -3,10 +3,10 @@ export class Metronome {
   #firstBeatClick = new Audio("./sounds/cl.ogg");
 
   playBeatClick() {
-    this.#beatClick.play();
+    this.#beatClick.cloneNode().play();
   }
 
   playFirstBeatClick() {
-    this.#firstBeatClick.play();
+    this.#firstBeatClick.cloneNode().play();
   }
 }

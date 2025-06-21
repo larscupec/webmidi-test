@@ -12,7 +12,6 @@
   grid-column: 1 / span 2;
   height: 20px;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
   border-bottom: 2px solid gray;
 }
 

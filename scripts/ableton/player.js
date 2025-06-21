@@ -97,10 +97,11 @@ export class Player {
 
       // Play metronome clicks
 
-      if ((currentStep + 1) % (16 / Timing.getTimeSignature().getLowerNumeral()) == 1 &&
-        this.#isMetronomeOn && currentStep != Timing.calcTotalStepCount() - 1) {
-          
-        if ((currentStep + 1) % Timing.calcStepCountPerBar() == 1) {
+      if (this.#isMetronomeOn &&
+          currentStep % (16 / Timing.getTimeSignature().getLowerNumeral()) == 0 &&
+          currentStep != Timing.calcTotalStepCount() - 1) {
+        
+        if (currentStep % Timing.calcStepCountPerBar() == 0) {
           this.#metronome.playFirstBeatClick();
         } else {
           this.#metronome.playBeatClick();

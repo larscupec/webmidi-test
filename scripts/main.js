@@ -349,6 +349,7 @@ function drawArrangement() {
   }
 
   const timeline = document.getElementById("timeline");
+  timeline.style = `grid-template-columns: repeat(${barCount}, 1fr);`;
   for (let i = 0; i < barCount; i++) {
     timeline.innerHTML += `<p>${i ? i + 1 : ""}</p>`;
   }
