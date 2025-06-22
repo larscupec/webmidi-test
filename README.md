@@ -1,6 +1,6 @@
 # Ableton Online (working title)
 
-a 16-step sequencer for making beats online
+a step sequencer for making beats online
 
 ![Screenshot](images/screenshot.png)
 
