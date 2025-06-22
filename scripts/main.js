@@ -61,6 +61,7 @@ window.onload = () => {
   document.addEventListener("keydown", (event) => recordKeyPressed(event));
   document.addEventListener("keydown", (event) => undoKeyPressed(event));
   document.addEventListener("keydown", (event) => redoKeyPressed(event));
+  document.addEventListener("keydown", (event) => clearPatternKeyPressed(event));
 
   document.getElementById("play-btn").addEventListener("click", (event) => {
     playPauseSong();
@@ -145,7 +146,7 @@ window.toggleRecording = () => {
     recordButton.style.filter = BLACK;
   }
 
-  setIsChannelArmed(Ableton.channelRack.getChannelIndex(Ableton.channelRack.getCurrentChannel()), isArmed);
+  setIsChannelArmed(Ableton.channelRack.getCurrentChannelIndex(), isArmed);
 };
 window.toggleKeyboardVisibility = toggleKeyboardVisibility;
 window.toggleMetronome = toggleMetronome;
@@ -286,7 +287,7 @@ function drawChannelRack() {
     volumeFader.addEventListener("click", (event) => event.stopPropagation());
   }
 
-  selectChannel(Ableton.channelRack.getChannelIndex(Ableton.channelRack.getCurrentChannel()));
+  selectChannel(Ableton.channelRack.getCurrentChannelIndex());
 }
 
 function drawArrangement() {
@@ -476,11 +477,10 @@ function setChannelVolume(event, channelIndex) {
 }
 
 function selectChannel(channelIndex) {
-  let currentChannelIndex = Ableton.channelRack.getChannelIndex(Ableton.channelRack.getCurrentChannel());
+  let currentChannelIndex = Ableton.channelRack.getCurrentChannelIndex();
 
   let currentChannel = document.getElementById(`channel-${currentChannelIndex}`);
   let currentChannelName = document.getElementById(`channel-${currentChannelIndex}-name`);
-  let currentChannelRecordBtn = document.getElementById(`channel-${currentChannelIndex}-record`);
 
   currentChannel.style.backgroundColor = "rgb(190, 190, 190)";
   currentChannelName.style.textDecoration = "none";
@@ -488,7 +488,6 @@ function selectChannel(channelIndex) {
 
   currentChannel = document.getElementById(`channel-${channelIndex}`);
   currentChannelName = document.getElementById(`channel-${channelIndex}-name`);
-  currentChannelRecordBtn = document.getElementById(`channel-${channelIndex}-record`);
 
   currentChannel.style.backgroundColor = "rgb(180, 180, 180)";
   currentChannelName.style.textDecoration = "underline";
@@ -677,6 +676,13 @@ function pauseKeyPressed(event) {
 function recordKeyPressed(event) {
   if (event.key === "R" && !event.repeat) {
     window.toggleRecording();
+  }
+}
+
+function clearPatternKeyPressed(event) {
+  if (event.key === "x" && event.ctrlKey && !event.repeat) {
+    let channelIndex = Ableton.channelRack.getCurrentChannelIndex();
+    deletePattern(event, channelIndex);
   }
 }
 

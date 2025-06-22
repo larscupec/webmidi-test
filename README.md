@@ -30,6 +30,7 @@ To use the virtual keyboard select "Keyboard" form the `Input` dropdown in the t
 - `Shift+R` - Arm for recording
 - `Ctrl+Z` - Undo
 - `Ctrl+Y` - Redo
+- `Ctrl+X` - Clear Track
 
 ## Recording
 

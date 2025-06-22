@@ -17,6 +17,10 @@ export class ChannelRack {
     return this.#currentChannel;
   }
 
+  getCurrentChannelIndex() {
+    return this.getChannelIndex(this.#currentChannel);
+  }
+
   getChannelAt(index) {
     return this.#channels[index];
   }
