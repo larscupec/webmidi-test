@@ -146,7 +146,7 @@ export class Player {
   }
 
   getCurrentStep() {
-    return Timing.quantizeTimeToStep(this.#currentSongTimeMs);
+    return Timing.quantizeTimeToStep(this.#currentSongTimeMs, true);
   }
 
   getIsMetronomeOn() {

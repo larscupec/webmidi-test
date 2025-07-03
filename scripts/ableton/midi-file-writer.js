@@ -39,7 +39,7 @@ export class MidiFileWriter {
             // Then add note endings
             for (const note of allNotes) {
                 let noteStartMs = Timing.convStepToTimeMs(note.startStep);
-                let noteEndStep = Timing.quantizeTimeToStep(noteStartMs + note.getDurationMs(), "loose");
+                let noteEndStep = Timing.quantizeTimeToStep(noteStartMs + note.getDurationMs());
 
                 if (step == noteEndStep ||
                     step == Timing.calcTotalStepCount() - 1 && noteEndStep > Timing.calcTotalStepCount() - 1) {

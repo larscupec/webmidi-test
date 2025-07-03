@@ -835,10 +835,10 @@ function updateSongTime() {
       break;
     case "step":
       document.getElementById("song-time").innerText =
-        Timing.quantizeTimeToStep(Ableton.player.getCurrentSongTimeMs());
+        Timing.quantizeTimeToStep(Ableton.player.getCurrentSongTimeMs(), true);
       break;
     case "bar":
-      let currentStep = Timing.quantizeTimeToStep(Ableton.player.getCurrentSongTimeMs());
+      let currentStep = Timing.quantizeTimeToStep(Ableton.player.getCurrentSongTimeMs(), true);
       document.getElementById("song-time").innerText = Math.floor(currentStep / Timing.calcStepCountPerBar()) + 1;
       break;
   } 

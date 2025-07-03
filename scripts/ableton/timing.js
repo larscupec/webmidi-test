@@ -45,21 +45,11 @@ export class Timing {
     return this.calcSongDurationMs() / this.#barCount / this.calcStepCountPerBar();
   }
 
-  static quantizeTimeToStep(timeMs, mode = "strict") {
+  static quantizeTimeToStep(timeMs, floor = false) {
     let songPerc = timeMs / this.calcSongDurationMs();
     let totalStepCount = this.calcTotalStepCount();
-    let step;
-
-    switch (mode) {
-      default: case "strict":
-        step = Math.floor(totalStepCount * songPerc);
-        break;
-      case "loose":
-        step = Math.round(totalStepCount * songPerc);
-        break;
-    }
-
-    return step;
+    
+    return floor ? Math.floor(totalStepCount * songPerc) : Math.round(totalStepCount * songPerc);
   }
 
   static convStepToTimeMs(step) {
