@@ -1,6 +1,6 @@
-import { SoundfontInstrument } from "../ableton/soundfont-instrument.js";
+import { Instrument } from "../ableton/instrument.js";
 
-export class SynthBass extends SoundfontInstrument {
+export class SynthBass extends Instrument {
   constructor(audioContext) {
     super("Synth Bass", audioContext, "synth_bass_1");
   }

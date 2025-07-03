@@ -1,7 +1,7 @@
 import { Voice } from "./voice.js";
 import { Soundfont } from "https://unpkg.com/smplr/dist/index.mjs";
 
-export class SoundfontInstrument extends Voice {
+export class Instrument extends Voice {
   #patch;
 
   constructor(name, audioContext, instrument) {
@@ -9,7 +9,10 @@ export class SoundfontInstrument extends Voice {
 
     this.#patch = new Soundfont(
       this._audioContext, 
-      { instrument: instrument, kit: "FluidR3_GM" }
+      {
+        instrument: instrument,
+        kit: "FluidR3_GM",
+      }
     );
   }
 

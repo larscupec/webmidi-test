@@ -170,7 +170,6 @@ function onEnabled() {
     option.innerText = `${input.name}`;
 
     inputSelect.appendChild(option);
-
     inputDevices.push(new MIDIDevice(input.name, input));
   });
 
@@ -181,12 +180,11 @@ function onEnabled() {
   option.innerText = `${virtualKeyboard.getName()}`;
 
   inputSelect.appendChild(option);
-
   inputDevices.push(virtualKeyboard);
 
-  selectInputDevice(inputDevices[0].getName());
-
   inputSelect.addEventListener("change", (event) => selectInputDevice(event.target.value));
+  
+  selectInputDevice(inputDevices[0].getName());
   
   document.addEventListener("keydown", (event) => {
     if (!event.repeat && !event.ctrlKey) {
