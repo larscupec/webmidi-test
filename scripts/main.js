@@ -566,7 +566,7 @@ function exportMIDI() {
       channelNumber = 9;
       nextChannelNumber--;
     }
-    midiFileWriter.addTrack(channel.getVoice().getMIDINumber(), channelNumber, channel.getPattern());
+    midiFileWriter.addTrack(channel.getVoice().getNumber(), channelNumber, channel.getPattern());
 
     nextChannelNumber++;
     if (nextChannelNumber == 9) {

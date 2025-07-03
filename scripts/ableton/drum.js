@@ -5,7 +5,7 @@ export class Drum extends Voice {
   #drumMachine;
 
   constructor(name, audioContext, instrument) {
-    super(name, audioContext);
+    super(name, 1, audioContext);
 
     this.#drumMachine = new DrumMachine(
       this._audioContext, 
@@ -173,10 +173,6 @@ export class Drum extends Voice {
 
   stopNote(noteNumber) {
     this.#drumMachine.stop({ note: noteNumber });
-  }
-
-  getMIDIName() {
-    return 1;
   }
 
   // Should return null if no sample is defined for a note

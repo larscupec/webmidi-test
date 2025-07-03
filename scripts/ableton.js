@@ -3,35 +3,21 @@ import { ChannelRack } from "./ableton/channel-rack.js";
 import { Player } from "./ableton/player.js";
 import { Channel } from "./ableton/channel.js";
 import { Timing } from "./ableton/timing.js";
-import * as Voices from "./voices.js";
+import * as Voices from "./voices/voices.js";
 
 Timing.setBPM(document.getElementById("bpm-select").value);
 Timing.setBarCount(4);
 Timing.setTimeSignature(new TimeSignature(4, 4));
 
 export const channelRack = new ChannelRack();
-
 export const player = new Player(channelRack);
-
 export const audioContext = Voices.audioContext;
+export const voices = Voices.voices;
 
-export const voices = [
-  Voices.acousticPiano,
-  Voices.electricPiano,
-  Voices.accordion,
-  Voices.overdrivenGuitar,
-  Voices.distortionGuitar,
-  Voices.acousticBass,
-  Voices.electricBass,
-  Voices.synthBass,
-  Voices.tr808,
-  Voices.casioRZ1,
-];
-
-const channel1 = new Channel("Track 1", Voices.tr808);
-const channel2 = new Channel("Track 2", Voices.electricBass);
-const channel3 = new Channel("Track 3", Voices.overdrivenGuitar);
-const channel4 = new Channel("Track 4", Voices.acousticPiano);
+const channel1 = new Channel("Track 1", voices[8]);
+const channel2 = new Channel("Track 2", voices[7]);
+const channel3 = new Channel("Track 3", voices[0]);
+const channel4 = new Channel("Track 4", voices[1]);
 
 channelRack.add(channel1);
 channelRack.add(channel2);

@@ -4,8 +4,8 @@ import { Soundfont } from "https://unpkg.com/smplr/dist/index.mjs";
 export class Instrument extends Voice {
   #patch;
 
-  constructor(name, audioContext, instrument) {
-    super(name, audioContext);
+  constructor(name, number, audioContext, instrument) {
+    super(name, number, audioContext);
 
     this.#patch = new Soundfont(
       this._audioContext, 
