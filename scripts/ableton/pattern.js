@@ -1,18 +1,18 @@
 import { Timing } from "./timing.js";
 
 export class Pattern {
-  #steps = new Map();
+  #steps = [];
   #lowestOctave = 0;
   #highestOctave = 0;
 
   constructor() {
     for (let i = 0; i < Timing.calcTotalStepCount(); i++) {
-      this.#steps.set(i, []);
+      this.#steps.push([]);
     }
   }
 
   add(note, startStep) {
-    let notesOnStep = this.#steps.get(startStep);
+    let notesOnStep = this.#steps[startStep];
 
     if (notesOnStep.find((n) => n.getPitch() === note.getPitch())) {
       // Same note already on this step, don't add
@@ -37,7 +37,7 @@ export class Pattern {
   }
 
   getNotes(step) {
-    return this.#steps.get(step);
+    return this.#steps[step];
   }
 
   getOctaveRange() {
@@ -45,11 +45,11 @@ export class Pattern {
   }
 
   isEmpty() {
-    for (const [key, value] of this.#steps) {
-      if (value.length != 0) {
+    this.#steps.forEach((notes) => {
+      if (notes.length != 0) {
         return false;
       }
-    }
+    });
 
     return true;
   }
@@ -63,13 +63,13 @@ export class Pattern {
   }
 
   clear() {
-    this.#steps.forEach((value, key, map) => value.length = 0);
+    this.#steps.forEach((notes) => notes.length = 0);
     this.#lowestOctave = 0;
     this.#highestOctave = 0;
   }
 
   remove(note, startStep) {
-    let notesOnStep = this.#steps.get(startStep);
+    let notesOnStep = this.#steps[startStep];
 
     let noteIndex = notesOnStep.indexOf(note);
     notesOnStep.splice(noteIndex, 1);
@@ -82,16 +82,16 @@ export class Pattern {
       this.#lowestOctave = 0;
       this.#highestOctave = 0;
     } else {
-      for (const [key, value] of this.#steps) {
-        if (value.length > 0) {
-          let noteOctave = value[0].getOctave();
+      for (const notes of this.#steps) {
+        if (notes.length > 0) {
+          let noteOctave = notes[0].getOctave();
           this.#lowestOctave = this.#highestOctave = noteOctave;
           break;
         }
       }
 
-      for (const [key, value] of this.#steps) {
-        for (const note of value) {
+      for (const notes of this.#steps) {
+        for (const note of notes) {
           let noteOctave = note.getOctave();
           if (noteOctave > this.#highestOctave) {
             this.#highestOctave = noteOctave;

@@ -20,9 +20,20 @@ export class Instrument extends Voice {
     this.#patch.output.setVolume(volume);
 
     if (durationMs > 0) {
-      this.#patch.start({ note: pitch, velocity: velocity, duration: durationMs / 1000.0 });
+      this.#patch.start(
+        {
+          note: pitch,
+          velocity: velocity,
+          duration: durationMs / 1000.0
+        }
+      );
     } else {
-      this.#patch.start({ note: pitch, velocity: velocity });
+      this.#patch.start(
+        {
+          note: pitch,
+          velocity: velocity
+        }
+      );
     }
   }
 
